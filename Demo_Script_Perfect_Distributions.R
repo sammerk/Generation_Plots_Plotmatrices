@@ -9,8 +9,8 @@ mean_group_A <- 50
 sd_group_A <- 10
 B_greater_A <- FALSE
 
-sample_sizes <- c(20, 40, 80, 160)
-effect_sizes <- c(.2, .5, .8, 1.2)
+sample_sizes <- c(10, 20, 40, 80)
+effect_sizes <- c(.1, .2, .5, .8)
 
 # Initialize empty data frame
 data <- tibble(
@@ -53,3 +53,11 @@ ggplot(data %>%
   facet_grid(Overlap ~ `Sample Size`) + 
   theme_ipsum_rc()
   
+
+
+data %>% 
+  gather(Group, value, A, B) %>% 
+  nest_by(`Sample Size`, cohen_d) %>% 
+  mutate(PmP = bain(t_test(value ~ Group, data = data), hypothesis = "groupA > groupB")$fit$PMPc[1],
+         BF = bain(t_test(value ~ Group, data = data), hypothesis = "groupA > groupB")$fit$BF[1],
+         BFBF = extractBF(ttestBF(formula = value ~ Group, data = data)))
