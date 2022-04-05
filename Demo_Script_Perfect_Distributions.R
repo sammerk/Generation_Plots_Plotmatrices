@@ -43,7 +43,7 @@ for(i in sample_sizes){
 
 
 
-  
+# Visualize the data  
 ggplot(data %>% 
          gather(Group, value, A, B) %>% 
          mutate(Overlap = as.factor(Overlap),
@@ -53,11 +53,11 @@ ggplot(data %>%
   facet_grid(Overlap ~ `Sample Size`) + 
   theme_ipsum_rc()
   
-
-
+# Inspect the evidence 
 data %>% 
   gather(Group, value, A, B) %>% 
   nest_by(`Sample Size`, cohen_d) %>% 
   mutate(PmP = bain(t_test(value ~ Group, data = data), hypothesis = "groupA > groupB")$fit$PMPc[1],
          BF = bain(t_test(value ~ Group, data = data), hypothesis = "groupA > groupB")$fit$BF[1],
-         BFBF = extractBF(ttestBF(formula = value ~ Group, data = data)))
+         BFBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
+         pval = t.test(value ~ Group, data = data)$p.value)
