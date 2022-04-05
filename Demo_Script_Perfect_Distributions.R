@@ -1,0 +1,55 @@
+library(bayestestR) # for perfect distributions
+library(tidyverse) # for everything
+library(patchwork) # for the combination of plots
+library(ggdist)
+library(hrbrthemes)
+
+# Vector of sample sizes
+mean_group_A <- 50
+sd_group_A <- 10
+B_greater_A <- FALSE
+
+sample_sizes <- c(20, 40, 80, 160)
+effect_sizes <- c(.2, .5, .8, 1.2)
+
+# Initialize empty data frame
+data <- tibble(
+  A = numeric(0),
+  B = numeric(0),
+  `Sample Size` = numeric(0),
+  cohen_d = numeric(0),
+  `Overlap` = numeric(0),
+)
+
+
+# loop over sample sizes
+for(i in sample_sizes){
+  # loop over effect sizes
+  for(j in effect_sizes){
+    data <- 
+      full_join(data,
+                tibble(A = distribution_normal(i, 
+                                               mean_group_A, 
+                                               sd_group_A),
+                       B = case_when(T ~ A - j*sd_group_A),
+                       `Sample Size` = i,
+                       cohen_d = j,
+                       Overlap = round(2*pnorm(-j/2), 2),
+                       ))
+  }
+  
+}
+
+
+
+
+  
+ggplot(data %>% 
+         gather(Group, value, A, B) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Sample Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)) + 
+  geom_dots(side = "both") + 
+  facet_grid(Overlap ~ `Sample Size`) + 
+  theme_ipsum_rc()
+  
