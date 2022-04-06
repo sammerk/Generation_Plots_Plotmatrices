@@ -61,3 +61,5 @@ data %>%
          BF = bain(t_test(value ~ Group, data = data), hypothesis = "groupA > groupB")$fit$BF[1],
          BFBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
          pval = t.test(value ~ Group, data = data)$p.value)
+
+# Kristina testet github :)
