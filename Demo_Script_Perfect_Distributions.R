@@ -64,4 +64,27 @@ data %>%
          JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
          pval = t.test(value ~ Group, data = data)$p.value)
 
-# Kristina testet erfolgreich github :)
+
+# Save a bunch of plots programmatically
+for(j in effect_sizes){
+  temporary_data <- 
+    tibble(
+      A = distribution_normal(50, 50, 10),
+      B = distribution_normal(50, 50 + j*10, 10)) %>% 
+    gather(group, variable)
+  
+  temporary_plot <- 
+    ggplot(temporary_data, aes(group, variable)) + 
+    geom_jitter()
+      
+  temporary_filename <- paste("demo_plots/jitterplot", 
+                              "N50", 
+                              "d", 
+                              substr(j, 3, 3), # sonst wird alles nach dem Puntk as Dateiendung verstanden
+                              ".png",
+                              sep = "_")
+  
+  ggsave(temporary_filename, 
+         temporary_plot, 
+         dpi = 300)
+}
