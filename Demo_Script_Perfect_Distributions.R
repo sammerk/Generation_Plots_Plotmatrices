@@ -3,6 +3,7 @@ library(tidyverse) # for everything
 library(patchwork) # for the combination of plots
 library(ggdist)
 library(hrbrthemes)
+library(bain)
 
 # Vector of sample sizes
 mean_group_A <- 50
@@ -31,13 +32,12 @@ for(i in sample_sizes){
                 tibble(A = distribution_normal(i, 
                                                mean_group_A, 
                                                sd_group_A),
-                       B = case_when(T ~ A - j*sd_group_A),
+                       B = A - j*sd_group_A,
                        `Sample Size` = i,
                        cohen_d = j,
                        Overlap = round(2*pnorm(-j/2), 2),
                        ))
   }
-  
 }
 
 
@@ -49,7 +49,7 @@ ggplot(data %>%
          mutate(Overlap = as.factor(Overlap),
                 `Sample Size` = as.factor(`Sample Size`)), 
        aes(Group, value)) + 
-  geom_dots(side = "both") + 
+  geom_dots(side = "left") + 
   facet_grid(Overlap ~ `Sample Size`) + 
   theme_ipsum_rc()
   
@@ -57,9 +57,11 @@ ggplot(data %>%
 data %>% 
   gather(Group, value, A, B) %>% 
   nest_by(`Sample Size`, cohen_d) %>% 
-  mutate(PmP = bain(t_test(value ~ Group, data = data), hypothesis = "groupA > groupB")$fit$PMPc[1],
-         BF = bain(t_test(value ~ Group, data = data), hypothesis = "groupA > groupB")$fit$BF[1],
-         BFBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
+  mutate(PmP = bain(t_test(value ~ Group, data = data), 
+                    hypothesis = "groupA > groupB")$fit$PMPc[1],
+         AABF = bain(t_test(value ~ Group, data = data), 
+                   hypothesis = "groupA > groupB")$fit$BF[1],
+         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
          pval = t.test(value ~ Group, data = data)$p.value)
 
-# Kristina testet github :)
+# Kristina testet erfolgreich github :)
