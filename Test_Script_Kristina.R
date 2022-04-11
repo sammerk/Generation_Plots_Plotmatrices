@@ -56,7 +56,7 @@ ggplot(data %>%
   ) + 
   facet_grid(Overlap ~ `Sample Size`,
              labeller = label_both) + 
-  theme_ipsum_rc()
+  theme_ipsum_rc() 
   
 # Inspect the evidence 
 data %>% 
