@@ -51,8 +51,8 @@ ggplot(data %>%
   geom_dots(side = "both",
             binwidth = 3) +
   stat_summary(
-    fun = median, geom = "point", 
-    shape = 95, size = 10
+    fun = mean, geom = "point", 
+    shape = 95, size = 10, color = "#8cd000"
   ) + 
   facet_grid(Overlap ~ `Sample Size`,
              labeller = label_both) + 
