@@ -2,6 +2,7 @@ library(bayestestR) # for perfect distributions
 library(tidyverse) # for everything
 library(patchwork) # for the combination of plots
 library(ggdist)
+library(ggbeeswarm)
 library(hrbrthemes)
 library(bain)
 library(BayesFactor)
@@ -42,7 +43,7 @@ for(i in sample_sizes){
 }
 
 
-# Visualize the data  
+# Visualize the data - dotplot
 ggplot(data %>% 
          gather(Group, value, A, B) %>% 
          mutate(Overlap = as.factor(Overlap),
@@ -50,6 +51,22 @@ ggplot(data %>%
        aes(Group, value)) + 
   geom_dots(side = "both",
             binwidth = 3) +
+  stat_summary(
+    fun = mean, geom = "point", 
+    shape = 95, size = 10, color = "#8cd000"
+  ) + 
+  facet_grid(Overlap ~ `Sample Size`,
+             labeller = label_both) + 
+  theme_ipsum_rc() 
+
+# Visualize the data - beeswarm plot
+ggplot(data %>% 
+         gather(Group, value, A, B) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Sample Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)) + 
+  geom_quasirandom(                #draws jittered data points similarly to geom_jitter but reducing overplotting
+    colour = "#848484",cex = 2) + 
   stat_summary(
     fun = mean, geom = "point", 
     shape = 95, size = 10, color = "#8cd000"
