@@ -61,7 +61,6 @@ ggplot(data %>%
         panel.grid.minor.x = element_blank(),
         strip.background = element_rect(color="black", fill="#5ebc3b", size=1.5, linetype="solid"),
         panel.background = element_rect(fill = "white", colour = "black"),
-        axis.text.y.right = element_text("test"),
         strip.text.x = element_text(size = 12, color = "black", face = "bold"),
         strip.text.y = element_text(size = 12, color = "black", face = "bold", angle = 360),
         axis.title.y = element_text(size = rel(1.25), angle = 90, vjust = 2),
@@ -70,7 +69,32 @@ ggplot(data %>%
   labs(title = "Sample sizes") +
   ylab("Value")
   
-#add another title outside y-axis (right)
+# Add another title outside y-axis (right)
+
+# Single graph
+
+ggplot(data %>% 
+         gather(Group, value, A, B) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Sample Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)) + 
+  geom_dots(side = "both",
+            colour = "black",
+            shape = 20) +
+  theme(panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.background = element_rect(fill = "white", colour = "black"),
+        axis.title.y = element_text(size = rel(1.25), angle = 90),
+        axis.title.x = element_text(size = rel(1.25)),
+        axis.text.x = element_text(face="bold", color="black", size=12)
+        ) +
+  ylab("Value") +
+  scale_x_discrete(labels=c("Sparklies", "Jinglies"))
+
+# needs sample size mentioned somewhere, as well as overlap
+# add the squiggly line at the lower end of the y-axis
 
 
 # Inspect the evidence 
