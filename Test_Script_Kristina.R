@@ -2,9 +2,11 @@ library(bayestestR) # for perfect distributions
 library(tidyverse) # for everything
 library(patchwork) # for the combination of plots
 library(ggdist)
+library(ggbeeswarm)
 library(hrbrthemes)
 library(bain)
 library(BayesFactor)
+library(lemon)
 
 # Vector of sample sizes
 mean_group_A <- 50
@@ -42,7 +44,7 @@ for(i in sample_sizes){
 }
 
 
-# Visualize the data  
+# Visualize the data - dotplot
 ggplot(data %>% 
          gather(Group, value, A, B) %>% 
          mutate(Overlap = as.factor(Overlap),
@@ -56,6 +58,42 @@ ggplot(data %>%
   ) + 
   facet_grid(Overlap ~ `Sample Size`,
              labeller = label_both) + 
+  theme_ipsum_rc() 
+
+# Visualize the data - beeswarm + violin plot groups on x axis
+ggplot(data %>% 
+         gather(Group, value, A, B) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Sample Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)) + 
+  geom_violin() +
+  geom_quasirandom(                #draws jittered data points similarly to geom_jitter but reducing overplotting
+    colour = "#848484",cex = 2) + 
+  stat_summary(
+    fun = mean, geom = "point", 
+    shape = 95, size = 10, color = "#8cd000"
+  ) + 
+  facet_rep_grid(Overlap ~ `Sample Size`,
+                 repeat.tick.labels = T,
+                 labeller = label_both) + 
+  theme_ipsum_rc() 
+
+# Visualize the data - beeswarm + violin plot groups on y axis
+ggplot(data %>% 
+         gather(Group, value, A, B) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Sample Size` = as.factor(`Sample Size`)), 
+       aes(value, Group)) + 
+  geom_violin() +
+  geom_quasirandom(colour = "#848484",
+                   groupOnX = F) + 
+  stat_summary(
+    fun = mean, geom = "point", 
+    shape = 95, size = 10, color = "#8cd000"
+  ) + 
+  facet_rep_grid(Overlap ~ `Sample Size`,
+                 repeat.tick.labels = T,
+                 labeller = label_both) + 
   theme_ipsum_rc() 
   
 # Inspect the evidence 
