@@ -6,6 +6,7 @@ library(ggbeeswarm)
 library(hrbrthemes)
 library(bain)
 library(BayesFactor)
+library(lemon)
 
 # Vector of sample sizes
 mean_group_A <- 50
@@ -71,8 +72,9 @@ ggplot(data %>%
     fun = mean, geom = "point", 
     shape = 95, size = 10, color = "#8cd000"
   ) + 
-  facet_grid(Overlap ~ `Sample Size`,
-             labeller = label_both) + 
+  facet_rep_grid(Overlap ~ `Sample Size`,
+                 repeat.tick.labels = T,
+                 labeller = label_both) + 
   theme_ipsum_rc() 
   
 # Inspect the evidence 
