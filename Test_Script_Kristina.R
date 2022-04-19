@@ -60,7 +60,7 @@ ggplot(data %>%
              labeller = label_both) + 
   theme_ipsum_rc() 
 
-# Visualize the data - beeswarm plot
+# Visualize the data - beeswarm + violin plot groups on x axis
 ggplot(data %>% 
          gather(Group, value, A, B) %>% 
          mutate(Overlap = as.factor(Overlap),
@@ -69,6 +69,24 @@ ggplot(data %>%
   geom_violin() +
   geom_quasirandom(                #draws jittered data points similarly to geom_jitter but reducing overplotting
     colour = "#848484",cex = 2) + 
+  stat_summary(
+    fun = mean, geom = "point", 
+    shape = 95, size = 10, color = "#8cd000"
+  ) + 
+  facet_rep_grid(Overlap ~ `Sample Size`,
+                 repeat.tick.labels = T,
+                 labeller = label_both) + 
+  theme_ipsum_rc() 
+
+# Visualize the data - beeswarm + violin plot groups on y axis
+ggplot(data %>% 
+         gather(Group, value, A, B) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Sample Size` = as.factor(`Sample Size`)), 
+       aes(value, Group)) + 
+  geom_violin() +
+  geom_quasirandom(colour = "#848484",
+                   groupOnX = F) + 
   stat_summary(
     fun = mean, geom = "point", 
     shape = 95, size = 10, color = "#8cd000"
