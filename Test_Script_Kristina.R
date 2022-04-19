@@ -66,6 +66,7 @@ ggplot(data %>%
          mutate(Overlap = as.factor(Overlap),
                 `Sample Size` = as.factor(`Sample Size`)), 
        aes(Group, value)) + 
+  geom_violin() +
   geom_quasirandom(                #draws jittered data points similarly to geom_jitter but reducing overplotting
     colour = "#848484",cex = 2) + 
   stat_summary(
