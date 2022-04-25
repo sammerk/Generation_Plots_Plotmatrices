@@ -147,6 +147,44 @@ ggplot(data %>%
   ylab("Value") + 
   theme_ipsum_rc() 
 
+#integrate Marc's label colors
+ggplot(data %>% 
+         gather(Group, value, A, B) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Group Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)) + 
+  geom_violin() +
+  geom_quasirandom(                #draws jittered data points similarly to geom_jitter but reducing overplotting
+    colour = "#848484",
+    cex = 2) + 
+  stat_summary(
+    fun = mean, geom = "point", 
+    shape = 95, size = 10, color = "#8cd000"
+  ) + 
+  facet_wrap2(vars(Overlap, `Group Size`),
+             labeller = labeller(`Group Size` = as_labeller(c(`10` = "Group size = 10",
+                                                              `20` = "Group size = 20",
+                                                              `40` = "Group size = 40",
+                                                              `80` = "Group size = 80")),
+                                 Overlap = as_labeller(c(`0.69` = "Overlap between groups A and B = 69%",
+                                                         `0.8` = "Overlap between groups A and B = 80%",
+                                                         `0.92` = "Overlap between groups A and B = 92%",
+                                                         `0.96` = "Overlap between groups A and B = 96%"))),
+             scales = "free",
+             strip = strip_themed( #integrate Marc's label colors
+               background_x = elem_list_rect(fill = c("#fbda66","#fbda66","#fbda66","#fbda66",
+                                                      "#ef9c47","#ef9c47","#ef9c47","#ef9c47",
+                                                      "#e55e2c","#e55e2c","#e55e2c","#e55e2c",
+                                                      "#88432c","#88432c","#88432c","#88432c",
+                                                      
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3")))
+  ) +
+  ylab("Value") + 
+  theme_ipsum_rc() 
+
 ## Visualize the data - beeswarm + violin plot groups on x axis, nur Points mit Mittelwertsdifferenzlabel
 # to add: Matrix Charakter durch Farbe der Strips hervorheben, ggf. anderes Design dafür wählen (Mark)
 
@@ -198,6 +236,44 @@ ggplot(data %>%
 
 #neuer Ansatz B: Mean difference integriert
 # stat_summary
+
+#integrate Marc's label colors
+ggplot(data %>% 
+         mutate(Mean_difference = A-B) %>% #adding mean difference
+         gather(Group, value, A, B) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Group Size` = as.factor(`Sample Size`)),
+       aes(Group, value)) + 
+  geom_quasirandom(                #draws jittered data points similarly to geom_jitter but reducing overplotting
+    colour = "#848484",
+    cex = 2) + 
+  stat_summary(
+    fun = mean, geom = "point", 
+    shape = 95, size = 10, color = "#8cd000"
+  ) + 
+  facet_wrap2(vars(Mean_difference, `Group Size`),
+             labeller = labeller(`Group Size` = as_labeller(c(`10` = "Group size = 10",
+                                                              `20` = "Group size = 20",
+                                                              `40` = "Group size = 40",
+                                                              `80` = "Group size = 80")),
+                                 'Mean_difference' = as_labeller(c(`1` = "Mean difference between groups A and B = 1", #mean difference als labeller
+                                                                   `2` = "Mean difference between groups A and B = 2",
+                                                                   `5` = "Mean difference between groups A and B = 5",
+                                                                   `8` = "Mean difference between groups A and B = 8"))),
+             scales = "free",
+             strip = strip_themed( #integrate Marc's label colors
+               background_x = elem_list_rect(fill = c("#fbda66","#fbda66","#fbda66","#fbda66",
+                                                      "#ef9c47","#ef9c47","#ef9c47","#ef9c47",
+                                                      "#e55e2c","#e55e2c","#e55e2c","#e55e2c",
+                                                      "#88432c","#88432c","#88432c","#88432c",
+                                                      
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3")))
+             ) +
+  ylab("Value") +
+  theme_ipsum_rc() 
 
 ## Save a bunch of plots programmatically
 for(j in effect_sizes){
