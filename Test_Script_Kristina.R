@@ -60,6 +60,10 @@ ggplot(data %>%
              labeller = label_both) + 
   theme_ipsum_rc() 
 
+# To-do:
+# - groups closer together -> to show the overlap
+# - 
+
 # Visualize the data - beeswarm + violin plot groups on x axis
 ggplot(data %>% 
          gather(Group, value, A, B) %>% 
@@ -68,7 +72,8 @@ ggplot(data %>%
        aes(Group, value)) + 
   geom_violin() +
   geom_quasirandom(                #draws jittered data points similarly to geom_jitter but reducing overplotting
-    colour = "#848484",cex = 2) + 
+    colour = "#848484",
+    cex = 2) + 
   stat_summary(
     fun = mean, geom = "point", 
     shape = 95, size = 10, color = "#8cd000"
@@ -76,6 +81,34 @@ ggplot(data %>%
   facet_rep_grid(Overlap ~ `Sample Size`,
                  repeat.tick.labels = T,
                  labeller = label_both) + 
+  theme_ipsum_rc() 
+
+# Visualize the data - beeswarm + violin plot groups on x axis, Points auf Violine mit Overlaplabel
+# to add: Matrix Charakter durch Farbe der Strips hervorheben, ggf. anderes Design dafür wählen
+ggplot(data %>% 
+         gather(Group, value, A, B) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Group Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)) + 
+  geom_violin() +
+  geom_quasirandom(                #draws jittered data points similarly to geom_jitter but reducing overplotting
+    colour = "#848484",
+    cex = 2) + 
+  stat_summary(
+    fun = mean, geom = "point", 
+    shape = 95, size = 10, color = "#8cd000"
+  ) + 
+  facet_wrap(Overlap ~ `Group Size`,
+             labeller = labeller(`Group Size` = as_labeller(c(`10` = "Group size = 10",
+                                                              `20` = "Group size = 20",
+                                                              `40` = "Group size = 40",
+                                                              `80` = "Group size = 80")),
+                                 Overlap = as_labeller(c(`0.69` = "Overlap between groups A and B = 69%",
+                                                         `0.8` = "Overlap between groups A and B = 80%",
+                                                         `0.92` = "Overlap between groups A and B = 92%",
+                                                         `0.96` = "Overlap between groups A and B = 96%"))),
+             scales = "free") +
+  ylab("Value") + 
   theme_ipsum_rc() 
 
 # Visualize the data - beeswarm + violin plot groups on y axis
