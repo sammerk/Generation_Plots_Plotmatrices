@@ -8,6 +8,7 @@ library(grid)
 library(ggdist)
 library(ggridges)
 library(ggbeeswarm)
+library(ggh4x)
 
 # Vector of sample sizes
 mean_group_A <- 50
@@ -82,7 +83,6 @@ ggplot(data %>%
 #Welche Vis ist konsistent/geeignet zur Verbalisierung “Overlap = 90%”
 #Ausprobieren: quasirandom mit Violine im Hintergrund (symmetrisch und halbiert) (ggdist package)
 
-
 ggplot(data %>% 
          gather(Group, value, A, B) %>% 
          mutate(Overlap = as.factor(Overlap),
@@ -105,7 +105,7 @@ ggplot(data %>%
     fun = mean, geom = "point", 
     shape = 95, size = 10, color = "orange"
   ) +
-  facet_wrap(Overlap ~ `Group Size`,
+  facet_wrap2(vars(Overlap, `Group Size`),
              labeller = labeller(`Group Size` = as_labeller(c(`10` = "Group size = 10",
                                                               `20` = "Group size = 20",
                                                               `40` = "Group size = 40",
@@ -114,7 +114,18 @@ ggplot(data %>%
                                                          `0.8` = "Overlap between groups A and B = 80%",
                                                          `0.92` = "Overlap between groups A and B = 92%",
                                                          `0.96` = "Overlap between groups A and B = 96%"))),
-             scales = "free") +
+             scales = "free",
+             strip = strip_themed(
+               background_x = elem_list_rect(fill = c("#fbda66","#fbda66","#fbda66","#fbda66",
+                                                      "#ef9c47","#ef9c47","#ef9c47","#ef9c47",
+                                                      "#e55e2c","#e55e2c","#e55e2c","#e55e2c",
+                                                      "#88432c","#88432c","#88432c","#88432c",
+                                                      
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
+                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3")))
+  ) +
   ylab("Value") +
   theme(panel.spacing = unit(0.35, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
