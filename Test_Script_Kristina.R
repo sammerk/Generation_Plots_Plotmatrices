@@ -163,13 +163,15 @@ ggplot(data_long,
   geom_quasirandom() +
   stat_compare_means()
 
-#neuer Ansatz:
+#neuer Ansatz A: Mean difference in den Strips
 #1. Mittelwertsdifferenzen berechnen
 #2. in neuer Variable anlegen
 #3. Variable als factor umbenennenn
 #4. Überschriften als Kategorie des factors
 #5. die Variable in Plot einbauen - danach facet_wrap aufteilen
-#dann aber 
+
+#neuer Ansatz B: Mean difference integriert
+# stat_summary
 
 
 ggplot(data %>% 
