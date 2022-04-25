@@ -7,7 +7,6 @@ library(hrbrthemes)
 library(bain)
 library(BayesFactor)
 library(lemon)
-library(ggpubr)
 
 # Vector of sample sizes
 mean_group_A <- 50
@@ -120,7 +119,7 @@ data %>%
 
 
 ## Visualize the data - beeswarm + violin plot groups on x axis, Points auf Violine mit Overlaplabel
-# to add: Matrix Charakter durch Farbe der Strips hervorheben, ggf. anderes Design dafür wählen
+# to add: Matrix Charakter durch Farbe der Strips hervorheben, ggf. anderes Design dafür wählen (Mark)
 
 ggplot(data %>% 
          gather(Group, value, A, B) %>% 
@@ -149,19 +148,20 @@ ggplot(data %>%
   theme_ipsum_rc() 
 
 ## Visualize the data - beeswarm + violin plot groups on x axis, nur Points mit Mittelwertsdifferenzlabel
-# to add: Matrix Charakter durch Farbe der Strips hervorheben, ggf. anderes Design dafür wählen
+# to add: Matrix Charakter durch Farbe der Strips hervorheben, ggf. anderes Design dafür wählen (Mark)
 
-data_long <- data %>%
-  pivot_longer(cols = A:B,
-               names_to = "Group",
-               values_to = "Value"
-                 ) 
+#data_long <- data %>%
+#  pivot_longer(cols = A:B,
+#               names_to = "Group",
+#               values_to = "Value"
+#                 ) 
 
 #integrierter p-Wert des Mittelwertsunterschieds... -> brauchen wir nicht
-ggplot(data_long,
-       aes(Group, Value)) +
-  geom_quasirandom() +
-  stat_compare_means()
+#ggplot(data_long,
+#       aes(Group, Value)) +
+#  geom_quasirandom() +
+#  stat_compare_means()
+
 
 #neuer Ansatz A: Mean difference in den Strips
 #1. Mittelwertsdifferenzen berechnen
@@ -170,14 +170,11 @@ ggplot(data_long,
 #4. Überschriften als Kategorie des factors
 #5. die Variable in Plot einbauen - danach facet_wrap aufteilen
 
-#neuer Ansatz B: Mean difference integriert
-# stat_summary
-
-
 ggplot(data %>% 
+         mutate(Mean_difference = A-B) %>% #adding mean difference
          gather(Group, value, A, B) %>% 
          mutate(Overlap = as.factor(Overlap),
-                `Group Size` = as.factor(`Sample Size`)), 
+                `Group Size` = as.factor(`Sample Size`)),
        aes(Group, value)) + 
   geom_quasirandom(                #draws jittered data points similarly to geom_jitter but reducing overplotting
     colour = "#848484",
@@ -186,19 +183,21 @@ ggplot(data %>%
     fun = mean, geom = "point", 
     shape = 95, size = 10, color = "#8cd000"
   ) + 
-  facet_wrap(Overlap ~ `Group Size`,
+  facet_wrap(Mean_difference ~ `Group Size`,
              labeller = labeller(`Group Size` = as_labeller(c(`10` = "Group size = 10",
                                                               `20` = "Group size = 20",
                                                               `40` = "Group size = 40",
                                                               `80` = "Group size = 80")),
-                                 Overlap = as_labeller(c(`0.69` = "Overlap between groups A and B = 69%",
-                                                         `0.8` = "Overlap between groups A and B = 80%",
-                                                         `0.92` = "Overlap between groups A and B = 92%",
-                                                         `0.96` = "Overlap between groups A and B = 96%"))),
+                                 'Mean_difference' = as_labeller(c(`1` = "Mean difference between groups A and B = 1", #mean difference als labeller
+                                                         `2` = "Mean difference between groups A and B = 2",
+                                                         `5` = "Mean difference between groups A and B = 5",
+                                                         `8` = "Mean difference between groups A and B = 8"))),
              scales = "free") +
   ylab("Value") +
   theme_ipsum_rc() 
 
+#neuer Ansatz B: Mean difference integriert
+# stat_summary
 
 ## Save a bunch of plots programmatically
 for(j in effect_sizes){
