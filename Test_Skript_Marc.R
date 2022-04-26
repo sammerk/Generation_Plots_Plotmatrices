@@ -25,6 +25,7 @@ data <- tibble(
   `Sample Size` = numeric(0),
   cohen_d = numeric(0),
   `Overlap` = numeric(0),
+  test_divider = character(0)
 )
 
 
@@ -41,6 +42,7 @@ for(i in sample_sizes){
                        `Sample Size` = i,
                        cohen_d = j,
                        Overlap = round(2*pnorm(-j/2), 2),
+                       test_divider = sample(c("A","B","C","D"),1)
                 ))
   }
 }
@@ -72,35 +74,21 @@ ggplot(data %>%
         ) +
   labs(title = "Sample sizes") +
   ylab("Value")
-  
-# Add another title outside y-axis (right)
 
 
-## DATA VIS WITH ggdist
 
-#Ausprobieren:
-#Titel in jedem Strip Wiederholen (?)
-#Welche Vis ist konsistent/geeignet zur Verbalisierung “Overlap = 90%”
-#Ausprobieren: quasirandom mit Violine im Hintergrund (symmetrisch und halbiert) (ggdist package)
 
-ggplot(data %>% 
+for(j in unique(data$test_divider)){
+
+  plot_to_upload <- ggplot(data %>% 
          gather(Group, value, A, B) %>% 
          mutate(Overlap = as.factor(Overlap),
                 `Group Size` = as.factor(`Sample Size`)), 
        aes(Group, value)) +
   
-  #symmetrisch
-  #stat_slab(side = "both", scale = 0.3, position = "dodgejust") +
-  #geom_violin() +
-  #geom_quasirandom(width = 0.2) +
-  
-  #possibly get geom_violinhalf?
-  
-  #halbiert
   stat_slab(side = "left", scale = 0.3, fill = "black") +
   stat_dots(side = "right", scale = 0.25, quantiles = 50, fill = "black") +
-  
-  
+    
   stat_summary(
     fun = mean, geom = "point", 
     shape = 95, size = 10, color = "orange"
@@ -140,6 +128,24 @@ ggplot(data %>%
         axis.title.x = element_blank()
   ) +
   ylim(7,83)
+
+  plot_to_upload_filename <- paste("demo_plots/matrices", 
+                            "testing",
+                            "if",
+                            "it",
+                            "works",
+                            paste(as.character(j)),
+                            ".png",
+                            sep = "_")
+  
+  ggsave(plot_to_upload_filename, 
+         plot_to_upload, 
+         dpi = 300,
+         width = 40,
+         height = 25,
+         units = "cm")
+}  
+
 
 #es ist möglich, die Gruppen so anzuordnen, wie in facet_grid, ist aber ein bisschen umständlich:
 #https://stackoverflow.com/questions/52706599/how-to-position-strip-labels-in-facet-wrap-like-in-facet-grid
