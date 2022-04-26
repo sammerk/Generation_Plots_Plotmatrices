@@ -7,6 +7,7 @@ library(hrbrthemes)
 library(bain)
 library(BayesFactor)
 library(lemon)
+library(ggh4x)
 
 # Vector of sample sizes
 mean_group_A <- 50
