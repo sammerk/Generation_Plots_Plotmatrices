@@ -47,6 +47,12 @@ for(i in sample_sizes){
   }
 }
 
+#add text-column for geom_texts
+data$txt <- ifelse(data$`Sample Size` == 10, "Group Size = 10",
+                                         ifelse(data$`Sample Size` == 20, "Group Size = 20",
+                                                ifelse(data$`Sample Size` == 40, "Group Size = 40",
+                                                       ifelse(data$`Sample Size` == 80, "Group Size = 80", "Other Group Size"))))
+
 
 # Visualize the data  
 ggplot(data %>% 
@@ -76,80 +82,89 @@ ggplot(data %>%
   ylab("Value")
 
 
+#for(j in unique(data$test_divider)){
 
 
-for(j in unique(data$test_divider)){
-
-  plot_to_upload <- ggplot(data %>% 
+  #plot_to_upload <- 
+ggplot(data %>% 
          gather(Group, value, A, B) %>% 
          mutate(Overlap = as.factor(Overlap),
                 `Group Size` = as.factor(`Sample Size`)), 
-       aes(Group, value)) +
-  
-  stat_slab(side = "left", scale = 0.3, fill = "black") +
-  stat_dots(side = "right", scale = 0.25, quantiles = 50, fill = "black") +
-    
+       aes(Group, value)
+       ) +
+  geom_quasirandom(
+    colour = "#848484",
+    cex = 2) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "orange"
+    shape = 95, size = 10, color = "green"
   ) +
-  facet_wrap2(vars(Overlap, `Group Size`),
-             labeller = labeller(`Group Size` = as_labeller(c(`10` = "Group size = 10",
-                                                              `20` = "Group size = 20",
-                                                              `40` = "Group size = 40",
-                                                              `80` = "Group size = 80")),
-                                 Overlap = as_labeller(c(`0.69` = "Overlap between groups A and B = 69%",
-                                                         `0.8` = "Overlap between groups A and B = 80%",
-                                                         `0.92` = "Overlap between groups A and B = 92%",
-                                                         `0.96` = "Overlap between groups A and B = 96%"))),
+  facet_wrap2(~interaction(`Group Size`, Overlap), #habe ich geändert, damit nur noch nach einer var gewrappt wird -> wird auch nur ein strip-panel erstellt.
+              
+              #wenn man hier die values der interaction-variable so umbenennt, dass alle, die den gleichen
+              #Overlap (alle, die jeweils mit .69, .8, etc. enden) haben, auch den gleichen value haben,
+              #dann sollte strip_nested() unten endlich machen was es soll.
+              # -> den Factor recodieren hat mit recode_factor() funktioniert aber dann bin ich nicht mehr weitergekommen
+             labeller = as_labeller(c(`10.0.69` = "Overlap between groups A and B = 69%",
+                                                         `20.0.69` = "Overlap between groups A and B = 69%",
+                                                         `40.0.69` = "Overlap between groups A and B = 69%",
+                                                         `80.0.69` = "Overlap between groups A and B = 69%",
+                                                         `10.0.8` = "Overlap between groups A and B = 80%",
+                                                         `20.0.8` = "Overlap between groups A and B = 80%",
+                                                         `40.0.8` = "Overlap between groups A and B = 80%",
+                                                         `80.0.8` = "Overlap between groups A and B = 80%",
+                                                         `10.0.92` = "Overlap between groups A and B = 92%",
+                                                         `20.0.92` = "Overlap between groups A and B = 92%",
+                                                         `40.0.92` = "Overlap between groups A and B = 92%",
+                                                         `80.0.92` = "Overlap between groups A and B = 92%",
+                                                         `10.0.96` = "Overlap between groups A and B = 96%",
+                                                         `20.0.96` = "Overlap between groups A and B = 96%",
+                                                         `40.0.96` = "Overlap between groups A and B = 96%",
+                                                         `80.0.96` = "Overlap between groups A and B = 96%")),
              scales = "free",
-             strip = strip_themed(
+             strip = strip_nested( #basiert auf strip_themed, deswegen geändert
+               #macht nicht, was es soll, weil es glaube ich auf den vars, nach denen faccetiert wird basiert, nicht auf den tatsächlichen labeln in der Grafik
+               #-> vars an overlaplabel anpassen!
                background_x = elem_list_rect(fill = c("#fbda66","#fbda66","#fbda66","#fbda66",
                                                       "#ef9c47","#ef9c47","#ef9c47","#ef9c47",
                                                       "#e55e2c","#e55e2c","#e55e2c","#e55e2c",
-                                                      "#88432c","#88432c","#88432c","#88432c",
-                                                      
-                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
-                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
-                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3",
-                                                      "#f0f6d7", "#80d5d5", "#3cadd3","#2c8bc3")))
+                                                      "#88432c","#88432c","#88432c","#88432c")))
   ) +
-  ylab("Value") +
+  ylab("Value"
+       ) +
+  geom_text(y = 12, x = 2,
+    mapping = aes(label = txt),hjust = 0,
+    fontface = "bold", color = "black",
+  ) +
   theme(panel.spacing = unit(0.35, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
-        strip.background = element_rect(color="black", fill="#5ebc3b", size=1.5, linetype="solid"),
+        strip.background = element_blank(),
         panel.background = element_rect(fill = "white", colour = "black"),
         strip.text.x = element_text(size = 12, color = "black", face = "bold"),
-        strip.text.y = element_text(size = 12, color = "black", face = "bold", angle = 360),
         axis.title.y = element_blank(),
         axis.title.x = element_blank()
   ) +
   ylim(7,83)
 
-  plot_to_upload_filename <- paste("demo_plots/matrices", 
-                            "testing",
-                            "if",
-                            "it",
-                            "works",
-                            paste(as.character(j)),
-                            ".png",
-                            sep = "_")
+  #plot_to_upload_filename <- paste("demo_plots/matrices", 
+                            #"testing",
+                            #"if",
+                            #"it",
+                            #"works",
+                            #paste(as.character(j)),
+                            #".png",
+                            #sep = "_")
   
-  ggsave(plot_to_upload_filename, 
-         plot_to_upload, 
-         dpi = 300,
-         width = 40,
-         height = 25,
-         units = "cm")
-}  
-
-
-#es ist möglich, die Gruppen so anzuordnen, wie in facet_grid, ist aber ein bisschen umständlich:
-#https://stackoverflow.com/questions/52706599/how-to-position-strip-labels-in-facet-wrap-like-in-facet-grid
-#try to move the groups closer to one another
+  #ggsave(plot_to_upload_filename, 
+         #plot_to_upload, 
+         #dpi = 300,
+         #width = 40,
+         #height = 25,
+         #units = "cm")
+#}  
 
 
 # Single graph
