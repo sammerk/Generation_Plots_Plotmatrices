@@ -547,10 +547,10 @@ ggplot(data_women_tallerthan_men %>%
                                                                `20` = "",
                                                                `40` = "",
                                                                `80` = "")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between groups Women and Men = 69%",
-                                                          `0.8` = "Overlap between groups Women and Men = 80%",
-                                                          `0.92` = "Overlap between groups Women and Men = 92%",
-                                                          `0.96` = "Overlap between groups Women and Men = 96%"))),
+                                  Overlap = as_labeller(c(`0.69` = "Overlap between Women and Men = 69%",
+                                                          `0.8` = "Overlap between Women and Men = 80%",
+                                                          `0.92` = "Overlap between Women and Men = 92%",
+                                                          `0.96` = "Overlap between Women and Men = 96%"))),
               
               #strip_nested kann nur funktionieren, wenn es zwei levels an strip gibt,
               #aber man kann den unteren strip nicht separat vom oberen entfernen (soweit ich weiß), deswegen zwei Versionen als "Ersatz":
