@@ -12,21 +12,21 @@ library(ggh4x)
 # Vector of sample sizes
 mean_group_A_jsp <- 50
 mean_group_A_height <- 168 #US mean for both mean and women together https://www.cdc.gov/nchs/data/nhsr/nhsr122-508.pdf
-#mean_group_A_salary <- 13.9 #US dentist mean/month (in thousands) https://www.bls.gov/oes/current/oes291021.htm
-#mean_group_B_salary <- 5.6 #US primary teacher mean/month (in thousands) https://www.bls.gov/oes/current/oes252021.htm
-mean_group_A_salary <- 70000 #annual mean of both teachers and dentists
-sd_jsp <- 10
-sd_height <- 8 #https://www.nber.org/system/files/working_papers/h0108/h0108.pdf #eiegetnlich 6  #LAUT DREISATZ ca. 33 -> macht kein Sinn
-sd_salary <- 14000 #nichts hierzu gefunden und zu faul um mir das auszurechnen, habe einfach mal geschätzt
+mean_group_A_salary <- 4200 
 
-B_greater_A <- FALSE #taucht im Skript nur einmal auf 
+sd_jsp <- 10
+sd_height <- 8 
+sd_salary <- 600 
+
+
 sample_sizes_1 <- c(11, 25, 37, 74)
-sample_sizes_2 <- c(13, 19, 44, 82)
 sample_sizes_3 <- c(9, 22, 40, 75)
 sample_sizes_4 <- c(14, 21, 38, 79)
 sample_sizes_5 <- c(15, 26, 41, 85)
 sample_sizes_6 <- c(10, 23, 39, 81)
 effect_sizes <- c(.1, .2, .5, .8)
+
+
 
 # Initialize empty data frames
 #sparklies jinglies
@@ -35,16 +35,7 @@ data_jinglies_betterthan_sparklies <- tibble(
   Sparklies = numeric(0),
   `Sample Size` = numeric(0),
   cohen_d = numeric(0),
-  `Overlap` = numeric(0),
-  test_divider = character(0)
-)
-data_sparklies_betterthan_jinglies <- tibble(
-  Jinglies = numeric(0),
-  Sparklies = numeric(0),
-  `Sample Size` = numeric(0),
-  cohen_d = numeric(0),
-  `Overlap` = numeric(0),
-  test_divider = character(0)
+  `Overlap` = numeric(0)
 )
 
 
@@ -54,17 +45,16 @@ data_women_tallerthan_men <- tibble(
   Men = numeric(0),
   `Sample Size` = numeric(0),
   cohen_d = numeric(0),
-  `Overlap` = numeric(0),
-  test_divider = character(0)
+  `Overlap` = numeric(0)
 )
 data_men_tallertan_women <- tibble(
   Women = numeric(0),
   Men = numeric(0),
   `Sample Size` = numeric(0),
   cohen_d = numeric(0),
-  `Overlap` = numeric(0),
-  test_divider = character(0)
+  `Overlap` = numeric(0)
 )
+
 
 #salary
 data_dentists_morethan_teachers <- tibble(
@@ -72,51 +62,47 @@ data_dentists_morethan_teachers <- tibble(
   Primary_Teachers = numeric(0),
   `Sample Size` = numeric(0),
   cohen_d = numeric(0),
-  `Overlap` = numeric(0),
-  test_divider = character(0)
+  `Overlap` = numeric(0)
 )
-
 data_teachers_morethan_dentists <- tibble(
   Dentists = numeric(0),
   Primary_Teachers = numeric(0),
   `Sample Size` = numeric(0),
   cohen_d = numeric(0),
-  `Overlap` = numeric(0),
-  test_divider = character(0)
+  `Overlap` = numeric(0)
 )
-
 
 
 # loop over sample sizes jinglies sparklies
 for(i in sample_sizes_1){
   # loop over effect sizes
   for(j in effect_sizes){
+    
+    if (j == 0.1)  {
+      multiplier <- 1
+    }
+    
+    if (j == 0.2)  {
+      multiplier <- 0.95
+    }
+    
+    if (j == 0.5)  {
+      multiplier <- 1.02
+    }
+    
+    if (j == 0.8)  {
+      multiplier <- 1.05
+    }
+    
     data_jinglies_betterthan_sparklies <- 
       full_join(data_jinglies_betterthan_sparklies,
                 tibble(Jinglies = distribution_normal(i, 
-                                               mean_group_A_jsp, 
+                                               mean_group_A_jsp*multiplier, 
                                                sd_jsp),
                        Sparklies = Jinglies - j*sd_jsp,
                        `Sample Size` = i,
                        cohen_d = j,
-                       Overlap = round(2*pnorm(-j/2), 2),
-                       test_divider = sample(c("A","B","C","D"),1)
-                ))
-  }
-}
-for(i in sample_sizes_2){
-  # loop over effect sizes
-  for(j in effect_sizes){
-    data_sparklies_betterthan_jinglies <- 
-      full_join(data_sparklies_betterthan_jinglies,
-                tibble(Sparklies = distribution_normal(i, 
-                                               mean_group_A_jsp, 
-                                               sd_jsp),
-                       Jinglies = Sparklies - j*sd_jsp,
-                       `Sample Size` = i,
-                       cohen_d = j,
-                       Overlap = round(2*pnorm(-j/2), 2),
-                       test_divider = sample(c("A","B","C","D"),1)
+                       Overlap = round(2*pnorm(-j/2), 2)
                 ))
   }
 }
@@ -125,32 +111,64 @@ for(i in sample_sizes_2){
 for(i in sample_sizes_3){
   # loop over effect sizes
   for(j in effect_sizes){
+    
+    if (j == 0.1)  {
+      multiplier <- 1
+    }
+    
+    if (j == 0.2)  {
+      multiplier <- 0.95
+    }
+    
+    if (j == 0.5)  {
+      multiplier <- 1.02
+    }
+    
+    if (j == 0.8)  {
+      multiplier <- 1.05
+    }
+    
     data_women_tallerthan_men <- 
       full_join(data_women_tallerthan_men,
                 tibble(Women = distribution_normal(i, 
-                                               mean_group_A_height, 
+                                               mean_group_A_height*multiplier, 
                                                sd_height),
                        Men = Women - j*sd_height,
                        `Sample Size` = i,
                        cohen_d = j,
-                       Overlap = round(2*pnorm(-j/2), 2),
-                       test_divider = sample(c("A","B","C","D"),1)
+                       Overlap = round(2*pnorm(-j/2), 2)
                 ))
   }
 }
 for(i in sample_sizes_4){
   # loop over effect sizes
   for(j in effect_sizes){
+    
+    if (j == 0.1)  {
+      multiplier <- 1
+    }
+    
+    if (j == 0.2)  {
+      multiplier <- 0.95
+    }
+    
+    if (j == 0.5)  {
+      multiplier <- 1.02
+    }
+    
+    if (j == 0.8)  {
+      multiplier <- 1.05
+    }
+    
     data_men_tallertan_women <- 
       full_join(data_men_tallertan_women,
                 tibble(Men = distribution_normal(i, 
-                                               mean_group_A_height, 
+                                               mean_group_A_height*multiplier, 
                                                sd_height),
                        Women = Men - j*sd_height,
                        `Sample Size` = i,
                        cohen_d = j,
-                       Overlap = round(2*pnorm(-j/2), 2),
-                       test_divider = sample(c("A","B","C","D"),1)
+                       Overlap = round(2*pnorm(-j/2), 2)
                 ))
   }
 }
@@ -159,34 +177,67 @@ for(i in sample_sizes_4){
 for(i in sample_sizes_5){
   # loop over effect sizes
   for(j in effect_sizes){
+    
+    if (j == 0.1)  {
+      multiplier <- 1
+    }
+    
+    if (j == 0.2)  {
+      multiplier <- 0.95
+    }
+    
+    if (j == 0.5)  {
+      multiplier <- 1.02
+    }
+    
+    if (j == 0.8)  {
+      multiplier <- 1.05
+    }
+    
     data_dentists_morethan_teachers <- 
       full_join(data_dentists_morethan_teachers,
                 tibble(Dentists = distribution_normal(i, 
-                                               mean_group_A_salary, 
+                                               mean_group_A_salary*multiplier, 
                                                sd_salary),
                        Primary_Teachers = Dentists - j*sd_salary,
                        `Sample Size` = i,
                        cohen_d = j,
-                       Overlap = round(2*pnorm(-j/2), 2),
-                       test_divider = sample(c("A","B","C","D"),1)
+                       Overlap = round(2*pnorm(-j/2), 2)
                 ))
   }
 }
 for(i in sample_sizes_6){
   # loop over effect sizes
-  for(j in effect_sizes){
-    data_teachers_morethan_dentists <- 
-      full_join(data_teachers_morethan_dentists,
-                tibble(Primary_Teachers = distribution_normal(i, 
-                                               mean_group_A_salary, 
-                                               sd_salary),
-                       Dentists = Primary_Teachers - j*sd_salary,
-                       `Sample Size` = i,
-                       cohen_d = j,
-                       Overlap = round(2*pnorm(-j/2), 2),
-                       test_divider = sample(c("A","B","C","D"),1)
-                ))
-  }
+    for(j in effect_sizes){
+      
+      if (j == 0.1)  {
+        multiplier <- 1
+      }
+      
+      if (j == 0.2)  {
+        multiplier <- 0.95
+      }
+      
+      if (j == 0.5)  {
+        multiplier <- 1.02
+      }
+      
+      if (j == 0.8)  {
+        multiplier <- 1.05
+      }
+      
+      data_teachers_morethan_dentists <- 
+        full_join(data_teachers_morethan_dentists,
+                  tibble(Primary_Teachers = distribution_normal(i, 
+                                                mean_group_A_salary*multiplier, 
+                                                sd_salary),
+                        Dentists = Primary_Teachers - j*sd_salary,
+                        `Sample Size` = i,
+                        cohen_d = j,
+                        Overlap = round(2*pnorm(-j/2), 2)
+                  ))
+    }
+  
 }
 
 
@@ -208,7 +259,7 @@ ggplot(data_dentists_morethan_teachers %>%
     cex = 2) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
+    shape = 95, size = 10, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`15` = "Group size = 15",
@@ -237,7 +288,7 @@ ggplot(data_dentists_morethan_teachers %>%
                                                  "bold","bold","bold","bold",
                                                  "bold","bold","bold","bold")))
   ) +
-  ylab("Annual salary in USD"
+  ylab("Monthly salary in EUR"
   ) +
   xlab("Profession"
   ) +
@@ -254,7 +305,7 @@ ggplot(data_dentists_morethan_teachers %>%
   ) +
   scale_x_discrete(labels=c("Dentists" = "Dentists", "Primary_Teachers" = "Primary Teachers")
   ) +
-  ylim(25000,115000)
+  ylim(2000,6000)
 
 ggsave(paste("demo_plots/matrices", 
        "dentists",
@@ -280,7 +331,7 @@ ggplot(data_teachers_morethan_dentists %>%
     cex = 2) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
+    shape = 95, size = 10, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`10` = "Group size = 10",
@@ -309,7 +360,7 @@ ggplot(data_teachers_morethan_dentists %>%
                                                  "bold","bold","bold","bold",
                                                  "bold","bold","bold","bold")))
   ) +
-  ylab("Annual salary in USD"
+  ylab("Monthly salary in EUR"
   ) +
   xlab("Profession"
   ) +
@@ -326,7 +377,7 @@ ggplot(data_teachers_morethan_dentists %>%
   ) +
   scale_x_discrete(labels=c("Dentists" = "Dentists", "Primary_Teachers" = "Primary Teachers")
   ) +
-  ylim(25000,115000)
+  ylim(2000,6000)
 
 ggsave(paste("demo_plots/matrices", 
              "teachers",
@@ -356,7 +407,7 @@ ggplot(data_jinglies_betterthan_sparklies %>%
     cex = 2) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
+    shape = 95, size = 10, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`11` = "Group size = 11",
@@ -413,80 +464,6 @@ ggsave(paste("demo_plots/matrices",
        units = "cm")
 
 
-#### Matrix mit overlapping overlaplabel Gefüllt angepasst für sparklies better TRANSPOx1 ####
-
-#transpo
-data_sparklies_betterthan_jinglies$Overlap_f <- factor(data_sparklies_betterthan_jinglies$Overlap, levels=c(0.96,0.92,0.8,0.69))
-
-
-ggplot(data_sparklies_betterthan_jinglies %>% 
-         gather(Group, value, Jinglies, Sparklies) %>% 
-         mutate(Overlap = as.factor(Overlap_f),
-                `Group Size` = as.factor(`Sample Size`)), 
-       aes(Group, value)
-) +
-  geom_quasirandom(
-    colour = "#848484",
-    cex = 2) +
-  stat_summary(
-    fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
-  ) +
-  facet_wrap2(vars(Overlap ,`Group Size`),
-              labeller = labeller(`Group Size` = as_labeller(c(`13` = "Group size = 13",
-                                                               `19` = "Group size = 19",
-                                                               `44` = "Group size = 44",
-                                                               `82` = "Group size = 82")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between Jinglies and Sparklies = 69%",
-                                                          `0.8` = "Overlap between Jinglies and Sparklies = 80%",
-                                                          `0.92` = "Overlap between Jinglies and Sparklies = 92%",
-                                                          `0.96` = "Overlap between Jinglies and Sparklies = 96%"))),
-              scales = "free",
-              strip = strip_nested(
-                background_x = elem_list_rect(fill = c("#fde725","#35b779","#31688e","#440154",
-                                                       "#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF",
-                                                       "#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF",
-                                                       "#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF",
-                                                       "#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF")),
-                text_x = elem_list_text(colour = c("black", "white","white","white",
-                                                   "black","black","black","black",
-                                                   "black","black","black","black",
-                                                   "black","black","black","black",
-                                                   "black","black","black","black"),
-                                        face = c("bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold")))
-  ) +
-  ylab("Minutes spent on building toy"
-  ) +
-  xlab("Type of Elf"
-  ) +
-  theme(panel.spacing = unit(0.35, "cm"),
-        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        strip.background = element_blank(),
-        panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12),
-        axis.title.y = element_text(size = 17, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 17, color = "black", face = "bold")
-  ) +
-  ylim(7,83)
-
-ggsave(paste("demo_plots/matrices", 
-             "sparklies",
-             "better",
-             ".png",
-             sep = "_"),
-       dpi = 600,
-       width = 40,
-       height = 25,
-       units = "cm")
-
-
 #### Matrix mit overlapping overlaplabel Gefüllt angepasst für women taller TRANSPOx2 ####
 
 #transpo
@@ -505,7 +482,7 @@ ggplot(data_women_tallerthan_men %>%
     cex = 2) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
+    shape = 95, size = 10, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`9` = "Group size = 9",
@@ -576,7 +553,7 @@ ggplot(data_men_tallertan_women %>%
     cex = 2) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
+    shape = 95, size = 10, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`14` = "Group size = 9",
