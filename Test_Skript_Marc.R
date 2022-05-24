@@ -10,9 +10,9 @@ library(ggh4x)
 
 #### Daten generieren ####
 # Vector of sample sizes
-mean_group_A_jsp <- 50
-mean_group_A_height <- 168 #US mean for both mean and women together https://www.cdc.gov/nchs/data/nhsr/nhsr122-508.pdf
-mean_group_A_salary <- 4200 
+average_jsp <- 50
+average_height <- 168 #US mean for both mean and women together https://www.cdc.gov/nchs/data/nhsr/nhsr122-508.pdf
+average_salary <- 4200 
 
 sd_jsp <- 10
 sd_height <- 8 
@@ -77,29 +77,14 @@ data_teachers_morethan_dentists <- tibble(
 for(i in sample_sizes_1){
   # loop over effect sizes
   for(j in effect_sizes){
-    
-    if (j == 0.1)  {
-      multiplier <- 1
-    }
-    
-    if (j == 0.2)  {
-      multiplier <- 0.95
-    }
-    
-    if (j == 0.5)  {
-      multiplier <- 1.02
-    }
-    
-    if (j == 0.8)  {
-      multiplier <- 1.05
-    }
-    
     data_jinglies_betterthan_sparklies <- 
       full_join(data_jinglies_betterthan_sparklies,
                 tibble(Jinglies = distribution_normal(i, 
-                                               mean_group_A_jsp*multiplier, 
+                                               average_jsp+j*0.5*sd_jsp, 
                                                sd_jsp),
-                       Sparklies = Jinglies - j*sd_jsp,
+                       Sparklies = distribution_normal(i, 
+                                                       average_jsp-j*0.5*sd_jsp, 
+                                                       sd_jsp),
                        `Sample Size` = i,
                        cohen_d = j,
                        Overlap = round(2*pnorm(-j/2), 2)
@@ -111,29 +96,14 @@ for(i in sample_sizes_1){
 for(i in sample_sizes_3){
   # loop over effect sizes
   for(j in effect_sizes){
-    
-    if (j == 0.1)  {
-      multiplier <- 1
-    }
-    
-    if (j == 0.2)  {
-      multiplier <- 0.95
-    }
-    
-    if (j == 0.5)  {
-      multiplier <- 1.02
-    }
-    
-    if (j == 0.8)  {
-      multiplier <- 1.05
-    }
-    
     data_women_tallerthan_men <- 
       full_join(data_women_tallerthan_men,
                 tibble(Women = distribution_normal(i, 
-                                               mean_group_A_height*multiplier, 
+                                               average_height+j*0.5*sd_height, 
                                                sd_height),
-                       Men = Women - j*sd_height,
+                       Men = distribution_normal(i, 
+                                                 average_height-j*0.5*sd_height, 
+                                                 sd_height),
                        `Sample Size` = i,
                        cohen_d = j,
                        Overlap = round(2*pnorm(-j/2), 2)
@@ -143,29 +113,14 @@ for(i in sample_sizes_3){
 for(i in sample_sizes_4){
   # loop over effect sizes
   for(j in effect_sizes){
-    
-    if (j == 0.1)  {
-      multiplier <- 1
-    }
-    
-    if (j == 0.2)  {
-      multiplier <- 0.95
-    }
-    
-    if (j == 0.5)  {
-      multiplier <- 1.02
-    }
-    
-    if (j == 0.8)  {
-      multiplier <- 1.05
-    }
-    
     data_men_tallertan_women <- 
       full_join(data_men_tallertan_women,
                 tibble(Men = distribution_normal(i, 
-                                               mean_group_A_height*multiplier, 
+                                               average_height+0.5*j*sd_height, 
                                                sd_height),
-                       Women = Men - j*sd_height,
+                       Women = distribution_normal(i, 
+                                                   average_height-0.5*j*sd_height, 
+                                                   sd_height),
                        `Sample Size` = i,
                        cohen_d = j,
                        Overlap = round(2*pnorm(-j/2), 2)
@@ -177,29 +132,14 @@ for(i in sample_sizes_4){
 for(i in sample_sizes_5){
   # loop over effect sizes
   for(j in effect_sizes){
-    
-    if (j == 0.1)  {
-      multiplier <- 1
-    }
-    
-    if (j == 0.2)  {
-      multiplier <- 0.95
-    }
-    
-    if (j == 0.5)  {
-      multiplier <- 1.02
-    }
-    
-    if (j == 0.8)  {
-      multiplier <- 1.05
-    }
-    
     data_dentists_morethan_teachers <- 
       full_join(data_dentists_morethan_teachers,
                 tibble(Dentists = distribution_normal(i, 
-                                               mean_group_A_salary*multiplier, 
+                                               average_salary+j*0.5*sd_salary, 
                                                sd_salary),
-                       Primary_Teachers = Dentists - j*sd_salary,
+                       Primary_Teachers = distribution_normal(i, 
+                                                              average_salary-j*0.5*sd_salary, 
+                                                              sd_salary),
                        `Sample Size` = i,
                        cohen_d = j,
                        Overlap = round(2*pnorm(-j/2), 2)
@@ -208,30 +148,15 @@ for(i in sample_sizes_5){
 }
 for(i in sample_sizes_6){
   # loop over effect sizes
-    for(j in effect_sizes){
-      
-      if (j == 0.1)  {
-        multiplier <- 1
-      }
-      
-      if (j == 0.2)  {
-        multiplier <- 0.95
-      }
-      
-      if (j == 0.5)  {
-        multiplier <- 1.02
-      }
-      
-      if (j == 0.8)  {
-        multiplier <- 1.05
-      }
-      
+    for(j in effect_sizes){ 
       data_teachers_morethan_dentists <- 
         full_join(data_teachers_morethan_dentists,
                   tibble(Primary_Teachers = distribution_normal(i, 
-                                                mean_group_A_salary*multiplier, 
+                                                average_salary+j*0.5*sd_salary, 
                                                 sd_salary),
-                        Dentists = Primary_Teachers - j*sd_salary,
+                        Dentists = distribution_normal(i, 
+                                                       average_salary-j*0.5*sd_salary, 
+                                                       sd_salary),
                         `Sample Size` = i,
                         cohen_d = j,
                         Overlap = round(2*pnorm(-j/2), 2)
