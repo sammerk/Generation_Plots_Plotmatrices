@@ -44,6 +44,18 @@ for(i in sample_sizes){
   }
 }
 
+## Inspect the evidence 
+data %>% 
+  gather(Group, value, A, B) %>% 
+  nest_by(`Sample Size`, cohen_d) %>% 
+  mutate(PmP = bain(t_test(value ~ Group, data = data), 
+                    hypothesis = "groupA > groupB")$fit$PMPc[1],
+         AABF = bain(t_test(value ~ Group, data = data), 
+                     hypothesis = "groupA > groupB")$fit$BF[1],
+         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
+         pval = t.test(value ~ Group, data = data)$p.value)
+
+
 
 ## Visualize the data - dotplot
 ggplot(data %>% 
@@ -106,17 +118,6 @@ ggplot(data %>%
                  repeat.tick.labels = T,
                  labeller = label_both) + 
   theme_ipsum_rc() 
-  
-## Inspect the evidence 
-data %>% 
-  gather(Group, value, A, B) %>% 
-  nest_by(`Sample Size`, cohen_d) %>% 
-  mutate(PmP = bain(t_test(value ~ Group, data = data), 
-                    hypothesis = "groupA > groupB")$fit$PMPc[1],
-         AABF = bain(t_test(value ~ Group, data = data), 
-                   hypothesis = "groupA > groupB")$fit$BF[1],
-         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
-         pval = t.test(value ~ Group, data = data)$p.value)
 
 
 ## Visualize the data - beeswarm + violin plot groups on x axis, Points auf Violine mit Overlaplabel

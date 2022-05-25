@@ -92,6 +92,22 @@ for(i in sample_sizes_1){
   }
 }
 
+# Inspect the evidence jinglies sparklies -> doesn't work...
+data_jinglies_betterthan_sparklies_oe <- data_jinglies_betterthan_sparklies %>% 
+  pivot_longer(c(Jinglies, Sparklies), names_to = "Group", values_to = "value") %>%
+#  gather(Group, value, Jinglies, Sparklies) %>% 
+  nest_by(`Sample Size`, cohen_d) 
+
+skimr::skim(data_jinglies_betterthan_sparklies_oe)
+
+data_jinglies_betterthan_sparklies_oe %>% 
+  mutate(PmP = bain(t_test(value ~ Group, data = data_jinglies_betterthan_sparklies_oe), 
+                    hypothesis = "Jinglies > Sparklies")$fit$PMPc[1],
+         AABF = bain(t_test(value ~ Group, data = data_jinglies_betterthan_sparklies_oe), 
+                     hypothesis = "Jinglies > Sparklies")$fit$BF[1],
+         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data_jinglies_betterthan_sparklies_oe))$bf,
+         pval = t.test(value ~ Group, data = data_jinglies_betterthan_sparklies_oe)$p.value)
+
 # loop over sample sizes height
 for(i in sample_sizes_3){
   # loop over effect sizes
