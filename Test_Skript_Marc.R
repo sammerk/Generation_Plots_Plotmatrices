@@ -6,6 +6,7 @@ library(hrbrthemes)
 library(bain)
 library(ggbeeswarm)
 library(ggh4x)
+library(BayesFactor)
 
 
 #### Daten generieren ####
@@ -102,9 +103,9 @@ skimr::skim(data_jinglies_betterthan_sparklies_oe)
 
 data_jinglies_betterthan_sparklies_oe %>% 
   mutate(PmP = bain(t_test(value ~ Group, data = data_jinglies_betterthan_sparklies_oe), 
-                    hypothesis = "Jinglies > Sparklies")$fit$PMPc[1],
+                    hypothesis = "groupJinglies > groupSparklies")$fit$PMPc[1],
          AABF = bain(t_test(value ~ Group, data = data_jinglies_betterthan_sparklies_oe), 
-                     hypothesis = "Jinglies > Sparklies")$fit$BF[1],
+                     hypothesis = "groupJinglies > groupSparklies")$fit$BF[1],
          JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data_jinglies_betterthan_sparklies_oe))$bf,
          pval = t.test(value ~ Group, data = data_jinglies_betterthan_sparklies_oe)$p.value)
 
@@ -143,6 +144,18 @@ for(i in sample_sizes_4){
                 ))
   }
 }
+
+# Inspect the evidence height -> doesn't work...
+data_men_tallertan_women %>% 
+  gather(Group, value, Women, Men) %>% 
+  nest_by(`Sample Size`, cohen_d) %>% 
+  mutate(PmP = bain(t_test(value ~ Group, data = data_men_tallertan_women), 
+                    hypothesis = "groupMen > groupWomen")$fit$PMPc[1],
+         AABF = bain(t_test(value ~ Group, data = data_men_tallertan_women), 
+                     hypothesis = "groupMen > groupWomen")$fit$BF[1],
+         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data_men_tallertan_women))$bf,
+         pval = t.test(value ~ Group, data = data_men_tallertan_women)$p.value)
+
 
 # loop over sample sizes salary
 for(i in sample_sizes_5){
