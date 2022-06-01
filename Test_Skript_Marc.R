@@ -93,21 +93,20 @@ for(i in sample_sizes_1){
   }
 }
 
+data_jinglies_betterthan_sparklies %>% 
+  skimr::skim()
+
 # Inspect the evidence jinglies sparklies -> doesn't work...
-data_jinglies_betterthan_sparklies_oe <- data_jinglies_betterthan_sparklies %>% 
+data_jinglies_betterthan_sparklies %>% 
   pivot_longer(c(Jinglies, Sparklies), names_to = "Group", values_to = "value") %>%
-#  gather(Group, value, Jinglies, Sparklies) %>% 
-  nest_by(`Sample Size`, cohen_d) 
-
-skimr::skim(data_jinglies_betterthan_sparklies_oe)
-
-data_jinglies_betterthan_sparklies_oe %>% 
-  mutate(PmP = bain(t_test(value ~ Group, data = data_jinglies_betterthan_sparklies_oe), 
+  nest_by(`Sample Size`, cohen_d) %>% 
+  mutate(PmP = bain(t_test(value ~ Group, data = data), 
                     hypothesis = "groupJinglies > groupSparklies")$fit$PMPc[1],
-         AABF = bain(t_test(value ~ Group, data = data_jinglies_betterthan_sparklies_oe), 
+         AABF = bain(t_test(value ~ Group, data = data), 
                      hypothesis = "groupJinglies > groupSparklies")$fit$BF[1],
-         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data_jinglies_betterthan_sparklies_oe))$bf,
-         pval = t.test(value ~ Group, data = data_jinglies_betterthan_sparklies_oe)$p.value)
+         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
+         pval = t.test(value ~ Group, data = data)$p.value,
+         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate)
 
 # loop over sample sizes height
 for(i in sample_sizes_3){
@@ -149,12 +148,12 @@ for(i in sample_sizes_4){
 data_men_tallertan_women %>% 
   gather(Group, value, Women, Men) %>% 
   nest_by(`Sample Size`, cohen_d) %>% 
-  mutate(PmP = bain(t_test(value ~ Group, data = data_men_tallertan_women), 
+  mutate(PmP = bain(t_test(value ~ Group, data = data), 
                     hypothesis = "groupMen > groupWomen")$fit$PMPc[1],
-         AABF = bain(t_test(value ~ Group, data = data_men_tallertan_women), 
+         AABF = bain(t_test(value ~ Group, data = data), 
                      hypothesis = "groupMen > groupWomen")$fit$BF[1],
-         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data_men_tallertan_women))$bf,
-         pval = t.test(value ~ Group, data = data_men_tallertan_women)$p.value)
+         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
+         pval = t.test(value ~ Group, data = data)$p.value)
 
 
 # loop over sample sizes salary
@@ -175,6 +174,7 @@ for(i in sample_sizes_5){
                 ))
   }
 }
+
 for(i in sample_sizes_6){
   # loop over effect sizes
     for(j in effect_sizes){ 
