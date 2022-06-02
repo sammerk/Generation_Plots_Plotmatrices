@@ -1,3 +1,6 @@
+
+#Hallo Kristina :)
+
 library(bayestestR) # for perfect distributions
 library(tidyverse) # for everything
 library(patchwork) # for the combination of plots
@@ -338,9 +341,9 @@ ggsave(paste("demo_plots/matrices",
              "more",
              ".png",
              sep = "_"),
-       dpi = 600,
-       width = 40,
-       height = 25,
+       dpi = 700,
+       width = 45,
+       height = 30,
        units = "cm")
 
 
