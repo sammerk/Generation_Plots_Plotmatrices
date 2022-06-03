@@ -1,6 +1,3 @@
-
-#Hallo Kristina :)
-
 library(bayestestR) # for perfect distributions
 library(tidyverse) # for everything
 library(patchwork) # for the combination of plots
