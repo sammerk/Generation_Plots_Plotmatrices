@@ -73,6 +73,7 @@ data_teachers_morethan_dentists <- tibble(
   `Overlap` = numeric(0)
 )
 
+### Jinglies & Sparklies 
 
 # loop over sample sizes jinglies sparklies
 for(i in sample_sizes_1){
@@ -109,7 +110,9 @@ data_jinglies_betterthan_sparklies %>%
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate)
 
 
-# loop over sample sizes height
+### height
+
+# loop over sample sizes height - women taller
 for(i in sample_sizes_3){
   # loop over effect sizes
   for(j in effect_sizes){
@@ -140,7 +143,7 @@ data_women_tallerthan_men %>%
          pval = t.test(value ~ Group, data = data)$p.value,
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate) 
 
-
+# loop over sample sizes height - men taller
 for(i in sample_sizes_4){
   # loop over effect sizes
   for(j in effect_sizes){
@@ -171,7 +174,10 @@ data_men_tallertan_women %>%
          pval = t.test(value ~ Group, data = data)$p.value)
 
 
-# loop over sample sizes salary
+
+### salary
+
+# loop over sample sizes salary - dentists more
 for(i in sample_sizes_5){
   # loop over effect sizes
   for(j in effect_sizes){
@@ -202,7 +208,7 @@ data_dentists_morethan_teachers %>%
          pval = t.test(value ~ Group, data = data)$p.value,
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate) 
 
-
+# loop over sample sizes salary - teachers more
 for(i in sample_sizes_6){
   # loop over effect sizes
     for(j in effect_sizes){ 
