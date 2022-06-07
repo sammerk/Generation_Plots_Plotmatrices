@@ -240,7 +240,7 @@ data_teachers_morethan_dentists %>%
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate) 
 
 
-#### Matrix mit overlapping overlaplabel Gefüllt angepasst für salary dentists more TRANSPOx2 ####
+#### Matrix mit overlapping overlaplabel gefüllt angepasst für salary dentists more TRANSPOx2 ####
 
 #transpo
 data_dentists_morethan_teachers$Overlap_f <- factor(data_dentists_morethan_teachers$Overlap, levels=c(0.96,0.92,0.8,0.69))
@@ -316,8 +316,8 @@ width = 40,
 height = 25,
 units = "cm")
 
-#### Matrix mit overlapping overlaplabel Gefüllt angepasst für salary teachers more ####
 
+#### Matrix mit overlapping overlaplabel gefüllt angepasst für salary teachers more ####
 
 ggplot(data_teachers_morethan_dentists %>% 
          gather(Group, value, Dentists, Primary_Teachers) %>% 
@@ -389,7 +389,7 @@ ggsave(paste("demo_plots/matrices",
        units = "cm")
 
 
-#### Matrix mit overlapping overlaplabel Gefüllt angepasst für jinglies better TRANSPOx1 ####
+#### Matrix mit overlapping overlaplabel gefüllt angepasst für jinglies better TRANSPOx1 ####
 
 #transpo
 data_jinglies_betterthan_sparklies$`Sample Size_f` <- factor(data_jinglies_betterthan_sparklies$`Sample Size`, levels=c(74,37,25,11))
@@ -463,7 +463,7 @@ ggsave(paste("demo_plots/matrices",
        units = "cm")
 
 
-#### Matrix mit overlapping overlaplabel Gefüllt angepasst für women taller TRANSPOx2 ####
+#### Matrix mit overlapping overlaplabel gefüllt angepasst für women taller TRANSPOx2 ####
 
 #transpo
 data_women_tallerthan_men$Overlap_f <- factor(data_women_tallerthan_men$Overlap, levels=c(0.96,0.92,0.8,0.69))
@@ -538,8 +538,8 @@ ggsave(paste("demo_plots/matrices",
        units = "cm")
 
 
-#### Matrix mit overlapping overlaplabel Gefüllt angepasst für men taller ####
 
+#### Matrix mit overlapping overlaplabel gefüllt angepasst für men taller ####
 
 ggplot(data_men_tallertan_women %>% 
          gather(Group, value, Women, Men) %>% 
