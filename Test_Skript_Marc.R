@@ -478,7 +478,7 @@ ggplot(data_women_tallerthan_men %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 2) +
+    cex = 1.5) +
   stat_summary(
     fun = mean, geom = "point", 
     shape = 95, size = 10, color = "black"
@@ -532,10 +532,10 @@ ggsave(paste("demo_plots/matrices",
              "taller",
              ".png",
              sep = "_"),
-       dpi = 600,
-       width = 40,
-       height = 25,
-       units = "cm")
+       dpi = 80,
+       width = 790,
+       height = 800,
+       units = "px")
 
 
 
@@ -549,7 +549,7 @@ ggplot(data_men_tallertan_women %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 2) +
+    cex = 1.5) +
   stat_summary(
     fun = mean, geom = "point", 
     shape = 95, size = 10, color = "black"
@@ -603,9 +603,9 @@ ggsave(paste("demo_plots/matrices",
              "taller",
              ".png",
              sep = "_"),
-       dpi = 600,
-       width = 40,
-       height = 25,
+       dpi = 500,
+       #width = 25,
+       #height = 15,
        units = "cm")
 
 ####DEPRECATED####
