@@ -96,7 +96,7 @@ for(i in sample_sizes_1){
 data_jinglies_betterthan_sparklies %>% 
   skimr::skim()
 
-# Inspect the evidence jinglies sparklies -> doesn't work...
+# Inspect the evidence jinglies sparklies 
 data_jinglies_betterthan_sparklies %>% 
   pivot_longer(c(Jinglies, Sparklies), names_to = "Group", values_to = "value") %>%
   nest_by(`Sample Size`, cohen_d) %>% 
@@ -107,6 +107,7 @@ data_jinglies_betterthan_sparklies %>%
          JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
          pval = t.test(value ~ Group, data = data)$p.value,
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate)
+
 
 # loop over sample sizes height
 for(i in sample_sizes_3){
@@ -126,6 +127,20 @@ for(i in sample_sizes_3){
                 ))
   }
 }
+
+# Inspect the evidence height - women taller 
+data_women_tallerthan_men %>% 
+  pivot_longer(c(Women, Men), names_to = "Group", values_to = "value") %>%
+  nest_by(`Sample Size`, cohen_d) %>% 
+  mutate(PmP = bain(t_test(value ~ Group, data = data), 
+                    hypothesis = "groupWomen > groupMen")$fit$PMPc[1],
+         AABF = bain(t_test(value ~ Group, data = data), 
+                     hypothesis = "groupWomen > groupMen")$fit$BF[1],
+         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
+         pval = t.test(value ~ Group, data = data)$p.value,
+         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate) 
+
+
 for(i in sample_sizes_4){
   # loop over effect sizes
   for(j in effect_sizes){
@@ -144,7 +159,7 @@ for(i in sample_sizes_4){
   }
 }
 
-# Inspect the evidence height -> doesn't work...
+# Inspect the evidence height - men taller
 data_men_tallertan_women %>% 
   gather(Group, value, Women, Men) %>% 
   nest_by(`Sample Size`, cohen_d) %>% 
@@ -175,6 +190,19 @@ for(i in sample_sizes_5){
   }
 }
 
+# Inspect the evidence salary - dentists more 
+data_dentists_morethan_teachers %>% 
+  pivot_longer(c(Dentists, Primary_Teachers), names_to = "Group", values_to = "value") %>%
+  nest_by(`Sample Size`, cohen_d) %>% 
+  mutate(PmP = bain(t_test(value ~ Group, data = data), 
+                    hypothesis = "groupDentists > groupPrimary_Teachers")$fit$PMPc[1],
+         AABF = bain(t_test(value ~ Group, data = data), 
+                     hypothesis = "groupDentists > groupPrimary_Teachers")$fit$BF[1],
+         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
+         pval = t.test(value ~ Group, data = data)$p.value,
+         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate) 
+
+
 for(i in sample_sizes_6){
   # loop over effect sizes
     for(j in effect_sizes){ 
@@ -191,8 +219,19 @@ for(i in sample_sizes_6){
                         Overlap = round(2*pnorm(-j/2), 2)
                   ))
     }
-  
 }
+
+# Inspect the evidence salary - teachers more 
+data_teachers_morethan_dentists %>% 
+  pivot_longer(c(Dentists, Primary_Teachers), names_to = "Group", values_to = "value") %>%
+  nest_by(`Sample Size`, cohen_d) %>% 
+  mutate(PmP = bain(t_test(value ~ Group, data = data), 
+                    hypothesis = "groupPrimary_Teachers > groupDentists")$fit$PMPc[1],
+         AABF = bain(t_test(value ~ Group, data = data), 
+                     hypothesis = "groupPrimary_Teachers > groupDentists")$fit$BF[1],
+         JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
+         pval = t.test(value ~ Group, data = data)$p.value,
+         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate) 
 
 
 #### Matrix mit overlapping overlaplabel Gefüllt angepasst für salary dentists more TRANSPOx2 ####
