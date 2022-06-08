@@ -478,10 +478,11 @@ ggplot(data_women_tallerthan_men %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 1.5) +
+    cex = 0.75,
+    shape=1) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "black"
+    shape = 95, size = 8, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`9` = "Group size = 9",
@@ -504,37 +505,34 @@ ggplot(data_women_tallerthan_men %>%
                                                    "black","black","black","black",
                                                    "black","black","black","black",
                                                    "black","black","black","black"),
-                                        face = c("bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold")))
+                                        face = c("bold","bold","bold","bold"
+                                                 )))
   ) +
   ylab("Height in centimeters"
   ) +
   xlab("Gender"
   ) +
-  theme(panel.spacing = unit(0.35, "cm"),
+  theme(panel.spacing = unit(0.15, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         strip.background = element_blank(),
         panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12),
-        axis.title.y = element_text(size = 17, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 17, color = "black", face = "bold")
+        strip.text.x = element_text(size = 10),
+        axis.title.y = element_text(size = 15, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 15, color = "black", face = "bold")
   ) +
   ylim(130,200)
 
 ggsave(paste("demo_plots/matrices", 
              "women",
              "taller",
-             ".png",
+             ".svg",
              sep = "_"),
-       dpi = 80,
-       width = 790,
-       height = 800,
+       dpi = 300,
+       width = 2000,
+       height = 1900,
        units = "px")
 
 
