@@ -255,10 +255,12 @@ ggplot(data_dentists_morethan_teachers %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 2) +
+    cex = 1.25,
+    alpha = 2/5
+  ) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "black"
+    shape = 95, size = 8, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`15` = "Group size = 15",
@@ -291,16 +293,16 @@ ggplot(data_dentists_morethan_teachers %>%
   ) +
   xlab("Profession"
   ) +
-  theme(panel.spacing = unit(0.35, "cm"),
+  theme(panel.spacing = unit(0.10, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         strip.background = element_blank(),
         panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12),
-        axis.title.y = element_text(size = 17, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 17, color = "black", face = "bold")
+        strip.text.x = element_text(size = 8),
+        axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 13, color = "black", face = "bold")
   ) +
   scale_x_discrete(labels=c("Dentists" = "Dentists", "Primary_Teachers" = "Primary Teachers")
   ) +
@@ -309,12 +311,12 @@ ggplot(data_dentists_morethan_teachers %>%
 ggsave(paste("demo_plots/matrices", 
        "dentists",
        "more",
-       ".png",
+       ".svg",
        sep = "_"),
-dpi = 600,
-width = 40,
-height = 25,
-units = "cm")
+       dpi = 300,
+       width = 2000,
+       height = 1900,
+       units = "px")
 
 
 #### Matrix mit overlapping overlaplabel gefüllt angepasst für salary teachers more ####
@@ -327,10 +329,12 @@ ggplot(data_teachers_morethan_dentists %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 2) +
+    cex = 1.25,
+    alpha = 2/5
+  ) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "black"
+    shape = 95, size = 8, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`10` = "Group size = 10",
@@ -363,16 +367,16 @@ ggplot(data_teachers_morethan_dentists %>%
   ) +
   xlab("Profession"
   ) +
-  theme(panel.spacing = unit(0.35, "cm"),
+  theme(panel.spacing = unit(0.10, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         strip.background = element_blank(),
         panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12),
-        axis.title.y = element_text(size = 17, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 17, color = "black", face = "bold")
+        strip.text.x = element_text(size = 8),
+        axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 13, color = "black", face = "bold")
   ) +
   scale_x_discrete(labels=c("Dentists" = "Dentists", "Primary_Teachers" = "Primary Teachers")
   ) +
@@ -381,12 +385,12 @@ ggplot(data_teachers_morethan_dentists %>%
 ggsave(paste("demo_plots/matrices", 
              "teachers",
              "more",
-             ".png",
+             ".svg",
              sep = "_"),
-       dpi = 700,
-       width = 45,
-       height = 30,
-       units = "cm")
+       dpi = 300,
+       width = 2000,
+       height = 1900,
+       units = "px")
 
 
 #### Matrix mit overlapping overlaplabel gefüllt angepasst für jinglies better TRANSPOx1 ####
@@ -403,10 +407,12 @@ ggplot(data_jinglies_betterthan_sparklies %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 2) +
+    cex = 1.25,
+    alpha = 2/5
+  ) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "black"
+    shape = 95, size = 8, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`11` = "Group size = 11",
@@ -439,23 +445,23 @@ ggplot(data_jinglies_betterthan_sparklies %>%
   ) +
   xlab("Type of Elf"
   ) +
-  theme(panel.spacing = unit(0.35, "cm"),
+  theme(panel.spacing = unit(0.10, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         strip.background = element_blank(),
         panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12),
-        axis.title.y = element_text(size = 17, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 17, color = "black", face = "bold")
+        strip.text.x = element_text(size = 8),
+        axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 13, color = "black", face = "bold")
   ) +
-  ylim(7,83)
+  ylim(130,200)
 
 ggsave(paste("demo_plots/matrices", 
              "jingles",
              "better",
-             ".png",
+             ".svg",
              sep = "_"),
        dpi = 600,
        width = 40,
@@ -474,12 +480,13 @@ ggplot(data_women_tallerthan_men %>%
          gather(Group, value, Women, Men) %>% 
          mutate(Overlap = as.factor(Overlap_f),
                 `Group Size` = as.factor(`Sample Size_f`)), 
-       aes(Group, value)
+       aes(Group, value) 
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 0.75,
-    shape=1) +
+    cex = 1.25,
+    alpha = 2/5
+    ) +
   stat_summary(
     fun = mean, geom = "point", 
     shape = 95, size = 8, color = "black"
@@ -512,16 +519,16 @@ ggplot(data_women_tallerthan_men %>%
   ) +
   xlab("Gender"
   ) +
-  theme(panel.spacing = unit(0.15, "cm"),
+  theme(panel.spacing = unit(0.10, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         strip.background = element_blank(),
         panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 10),
-        axis.title.y = element_text(size = 15, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 15, color = "black", face = "bold")
+        strip.text.x = element_text(size = 8),
+        axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 13, color = "black", face = "bold")
   ) +
   ylim(130,200)
 
@@ -547,10 +554,12 @@ ggplot(data_men_tallertan_women %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 1.5) +
+    cex = 1.25,
+    alpha = 2/5
+  ) +
   stat_summary(
     fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "black"
+    shape = 95, size = 8, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
               labeller = labeller(`Group Size` = as_labeller(c(`14` = "Group size = 9",
@@ -583,28 +592,28 @@ ggplot(data_men_tallertan_women %>%
   ) +
   xlab("Gender"
   ) +
-  theme(panel.spacing = unit(0.35, "cm"),
+  theme(panel.spacing = unit(0.10, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         strip.background = element_blank(),
         panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12),
-        axis.title.y = element_text(size = 17, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 17, color = "black", face = "bold")
+        strip.text.x = element_text(size = 8),
+        axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 13, color = "black", face = "bold")
   ) +
   ylim(130,200)
 
 ggsave(paste("demo_plots/matrices", 
              "men",
              "taller",
-             ".png",
+             ".svg",
              sep = "_"),
-       dpi = 500,
-       #width = 25,
-       #height = 15,
-       units = "cm")
+       dpi = 300,
+       width = 2000,
+       height = 1900,
+       units = "px")
 
 ####DEPRECATED####
 
