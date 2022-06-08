@@ -283,11 +283,8 @@ ggplot(data_dentists_morethan_teachers %>%
                                                    "black","black","black","black",
                                                    "black","black","black","black",
                                                    "black","black","black","black"),
-                                        face = c("bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold")))
+                                        face = c("bold","bold","bold","bold"
+                                                 )))
   ) +
   ylab("Monthly salary in EUR"
   ) +
@@ -357,11 +354,8 @@ ggplot(data_teachers_morethan_dentists %>%
                                                    "black","black","black","black",
                                                    "black","black","black","black",
                                                    "black","black","black","black"),
-                                        face = c("bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold")))
+                                        face = c("bold","bold","bold","bold"
+                                                 )))
   ) +
   ylab("Monthly salary in EUR"
   ) +
@@ -435,11 +429,8 @@ ggplot(data_jinglies_betterthan_sparklies %>%
                                                    "black","black","black","black",
                                                    "black","black","black","black",
                                                    "black","black","black","black"),
-                                        face = c("bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold")))
+                                        face = c("bold","bold","bold","bold"
+                                                 )))
   ) +
   ylab("Minutes spent on building toy"
   ) +
@@ -456,17 +447,17 @@ ggplot(data_jinglies_betterthan_sparklies %>%
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
         axis.title.x = element_text(size = 13, color = "black", face = "bold")
   ) +
-  ylim(130,200)
+  ylim(20,80)
 
 ggsave(paste("demo_plots/matrices", 
              "jingles",
              "better",
              ".svg",
              sep = "_"),
-       dpi = 600,
-       width = 40,
-       height = 25,
-       units = "cm")
+       dpi = 300,
+       width = 2000,
+       height = 1900,
+       units = "px")
 
 
 #### Matrix mit overlapping overlaplabel gefüllt angepasst für women taller TRANSPOx2 ####
@@ -582,11 +573,8 @@ ggplot(data_men_tallertan_women %>%
                                                    "black","black","black","black",
                                                    "black","black","black","black",
                                                    "black","black","black","black"),
-                                        face = c("bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold",
-                                                 "bold","bold","bold","bold")))
+                                        face = c("bold","bold","bold","bold"
+                                                 )))
   ) +
   ylab("Height in centimeters"
   ) +
