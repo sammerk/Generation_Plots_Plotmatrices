@@ -299,7 +299,9 @@ ggplot(data_dentists_morethan_teachers %>%
         panel.background = element_rect(fill = "white", colour = "black"),
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 13, color = "black", face = "bold")
+        axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+        axis.text.x = element_text(size = 8, color = "red", face = "bold", angle = X)
+        
   ) +
   scale_x_discrete(labels=c("Dentists" = "Dentists", "Primary_Teachers" = "Primary Teachers")
   ) +
@@ -370,7 +372,8 @@ ggplot(data_teachers_morethan_dentists %>%
         panel.background = element_rect(fill = "white", colour = "black"),
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 13, color = "black", face = "bold")
+        axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+        axis.text.x = element_text(size = 8, color = "red", face = "bold", angle = X)
   ) +
   scale_x_discrete(labels=c("Dentists" = "Dentists", "Primary_Teachers" = "Primary Teachers")
   ) +
@@ -445,7 +448,8 @@ ggplot(data_jinglies_betterthan_sparklies %>%
         panel.background = element_rect(fill = "white", colour = "black"),
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 13, color = "black", face = "bold")
+        axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+        axis.text.x = element_text(size = 8, color = "red", face = "bold", angle = X)
   ) +
   ylim(20,80)
 
@@ -519,7 +523,8 @@ ggplot(data_women_tallerthan_men %>%
         panel.background = element_rect(fill = "white", colour = "black"),
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 13, color = "black", face = "bold")
+        axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+        axis.text.x = element_text(size = 8, color = "red", face = "bold", angle = X)
   ) +
   ylim(130,200)
 
@@ -589,7 +594,8 @@ ggplot(data_men_tallertan_women %>%
         panel.background = element_rect(fill = "white", colour = "black"),
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 13, color = "black", face = "bold")
+        axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+        axis.text.x = element_text(size = 8, color = "red", face = "bold", angle = X)
   ) +
   ylim(130,200)
 
