@@ -300,7 +300,8 @@ ggplot(data_dentists_morethan_teachers %>%
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
         axis.title.x = element_text(size = 13, color = "black", face = "bold"),
-        axis.text.x = element_text(size = 8, color = "red", face = "bold", angle = X)
+        axis.text.y = element_text(size = 6, color = "black"),
+        axis.text.x = element_text(size = 6, color = "black") #, face = "bold", angle = X)
         
   ) +
   scale_x_discrete(labels=c("Dentists" = "Dentists", "Primary_Teachers" = "Primary Teachers")
