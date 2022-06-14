@@ -450,13 +450,13 @@ ggplot(data_jinglies_betterthan_sparklies %>%
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
         axis.title.x = element_text(size = 13, color = "black", face = "bold"),
-        axis.text.x = element_text(size = 8, color = "red", face = "bold", angle = X)
+        axis.text.x = element_text(size = 6, color = "black")
   ) +
   ylim(20,80)
 
 ggsave(paste("demo_plots/matrices", 
-             "jingles",
-             "better",
+             "sparklies",
+             "superior",
              ".svg",
              sep = "_"),
        dpi = 300,
@@ -525,7 +525,7 @@ ggplot(data_women_tallerthan_men %>%
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
         axis.title.x = element_text(size = 13, color = "black", face = "bold"),
-        axis.text.x = element_text(size = 8, color = "red", face = "bold", angle = X)
+        axis.text.x = element_text(size = 6, color = "black")
   ) +
   ylim(130,200)
 
@@ -559,7 +559,7 @@ ggplot(data_men_tallertan_women %>%
     shape = 95, size = 8, color = "black"
   ) +
   facet_wrap2(vars(Overlap ,`Group Size`),
-              labeller = labeller(`Group Size` = as_labeller(c(`14` = "Group size = 9",
+              labeller = labeller(`Group Size` = as_labeller(c(`14` = "Group size = 14",
                                                                `21` = "Group size = 21",
                                                                `38` = "Group size = 38",
                                                                `79` = "Group size = 79")),
@@ -596,7 +596,7 @@ ggplot(data_men_tallertan_women %>%
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
         axis.title.x = element_text(size = 13, color = "black", face = "bold"),
-        axis.text.x = element_text(size = 8, color = "red", face = "bold", angle = X)
+        axis.text.x = element_text(size = 6, color = "black")
   ) +
   ylim(130,200)
 
