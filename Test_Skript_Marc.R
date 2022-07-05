@@ -25,13 +25,22 @@ sample_sizes_3 <- c(9, 22, 40, 75)
 sample_sizes_4 <- c(14, 21, 38, 79)
 sample_sizes_5 <- c(15, 26, 41, 85)
 sample_sizes_6 <- c(10, 23, 39, 81)
+sample_sizes_7 <- c(12, 24, 42, 79)
 effect_sizes <- c(.1, .2, .5, .8)
 
 
 
 # Initialize empty data frames
 #sparklies jinglies
-data_jinglies_betterthan_sparklies <- tibble(
+data_jinglies_fasterthan_sparklies <- tibble(
+  Jinglies = numeric(0),
+  Sparklies = numeric(0),
+  `Sample Size` = numeric(0),
+  cohen_d = numeric(0),
+  `Overlap` = numeric(0)
+)
+
+data_sparklies_fasterthan_jinglies <- tibble(
   Jinglies = numeric(0),
   Sparklies = numeric(0),
   `Sample Size` = numeric(0),
@@ -75,12 +84,14 @@ data_teachers_morethan_dentists <- tibble(
 
 ### Jinglies & Sparklies 
 
+#Sparklies faster
+
 # loop over sample sizes jinglies sparklies
 for(i in sample_sizes_1){
   # loop over effect sizes
   for(j in effect_sizes){
-    data_jinglies_betterthan_sparklies <- 
-      full_join(data_jinglies_betterthan_sparklies,
+    data_sparklies_fasterthan_jinglies <- 
+      full_join(data_sparklies_fasterthan_jinglies,
                 tibble(Jinglies = distribution_normal(i, 
                                                average_jsp+j*0.5*sd_jsp, 
                                                sd_jsp),
@@ -94,11 +105,11 @@ for(i in sample_sizes_1){
   }
 }
 
-data_jinglies_betterthan_sparklies %>% 
+data_sparklies_fasterthan_jinglies %>% 
   skimr::skim()
 
 # Inspect the evidence jinglies sparklies 
-data_jinglies_betterthan_sparklies %>% 
+data_sparklies_fasterthan_jinglies %>% 
   pivot_longer(c(Jinglies, Sparklies), names_to = "Group", values_to = "value") %>%
   nest_by(`Sample Size`, cohen_d) %>% 
   mutate(PmP = bain(t_test(value ~ Group, data = data), 
@@ -108,6 +119,27 @@ data_jinglies_betterthan_sparklies %>%
          JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
          pval = t.test(value ~ Group, data = data)$p.value,
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate)
+
+#Jinglies faster
+
+# loop over sample sizes jinglies sparklies
+for(i in sample_sizes_7){
+  # loop over effect sizes
+  for(j in effect_sizes){
+    data_jinglies_fasterthan_sparklies <- 
+      full_join(data_jinglies_fasterthan_sparklies,
+                tibble(Sparklies = distribution_normal(i, 
+                                                      average_jsp+j*0.5*sd_jsp, 
+                                                      sd_jsp),
+                       Jinglies = distribution_normal(i, 
+                                                       average_jsp-j*0.5*sd_jsp, 
+                                                       sd_jsp),
+                       `Sample Size` = i,
+                       cohen_d = j,
+                       Overlap = round(2*pnorm(-j/2), 2)
+                ))
+  }
+}
 
 
 ### height
@@ -267,10 +299,10 @@ ggplot(data_dentists_morethan_teachers %>%
                                                                `26` = "Group size = 26",
                                                                `41` = "Group size = 41",
                                                                `85` = "Group size = 85")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between Dentists and Primary Teachers = 69%",
-                                                          `0.8` = "Overlap between Dentists and Primary Teachers = 80%",
-                                                          `0.92` = "Overlap between Dentists and Primary Teachers = 92%",
-                                                          `0.96` = "Overlap between Dentists and Primary Teachers = 96%"))),
+                                  Overlap = as_labeller(c(`0.69` = "Difference between the groups = 31% (69% overlap)",
+                                                          `0.8` = "Difference between the groups = 20% (80% overlap)",
+                                                          `0.92` = "Difference between the groups = 8% (92% overlap)",
+                                                          `0.96` = "Difference between the groups = 4% (96% overlap)"))),
               scales = "free",
               strip = strip_nested(
                 background_x = elem_list_rect(fill = c("#fde725","#35b779","#31688e","#440154",
@@ -341,10 +373,10 @@ ggplot(data_teachers_morethan_dentists %>%
                                                                `23` = "Group size = 23",
                                                                `39` = "Group size = 39",
                                                                `81` = "Group size = 81")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between Dentists and Primary Teachers = 69%",
-                                                          `0.8` = "Overlap between Dentists and Primary Teachers = 80%",
-                                                          `0.92` = "Overlap between Dentists and Primary Teachers = 92%",
-                                                          `0.96` = "Overlap between Dentists and Primary Teachers = 96%"))),
+                                  Overlap = as_labeller(c(`0.69` = "Difference between the groups = 31% (69% overlap)",
+                                                          `0.8` = "Difference between the groups = 20% (80% overlap)",
+                                                          `0.92` = "Difference between the groups = 8% (92% overlap)",
+                                                          `0.96` = "Difference between the groups = 4% (96% overlap)"))),
               scales = "free",
               strip = strip_nested(
                 background_x = elem_list_rect(fill = c("#fde725","#35b779","#31688e","#440154",
@@ -390,14 +422,86 @@ ggsave(paste("demo_plots/matrices",
        height = 1900,
        units = "px")
 
+#### Matrix mit overlapping overlaplabel gefüllt angepasst für jinglies faster ####
 
-#### Matrix mit overlapping overlaplabel gefüllt angepasst für sparklies better TRANSPOx1 ####
+
+ggplot(data_jinglies_fasterthan_sparklies %>% 
+         gather(Group, value, Jinglies, Sparklies) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Group Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)
+) +
+  geom_quasirandom(
+    colour = "#848484",
+    cex = 1.25,
+    alpha = 2/5
+  ) +
+  stat_summary(
+    fun = mean, geom = "point",
+    shape = 95, size = 8, color = "black"
+  ) +
+  facet_wrap2(vars(Overlap ,`Group Size`),
+              labeller = labeller(`Group Size` = as_labeller(c(`12` = "Group size = 12",
+                                                               `24` = "Group size = 24",
+                                                               `42` = "Group size = 42",
+                                                               `79` = "Group size = 79")),
+                                  Overlap = as_labeller(c(`0.69` = "Difference between the groups = 31% (69% overlap)",
+                                                          `0.8` = "Difference between the groups = 20% (80% overlap)",
+                                                          `0.92` = "Difference between the groups = 8% (92% overlap)",
+                                                          `0.96` = "Difference between the groups = 4% (96% overlap)"))),
+              scales = "free",
+              strip = strip_nested(
+                background_x = elem_list_rect(fill = c("#fde725","#35b779","#31688e","#440154",
+                                                       "#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF",
+                                                       "#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF",
+                                                       "#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF",
+                                                       "#FFFFFF","#FFFFFF","#FFFFFF","#FFFFFF")),
+                text_x = elem_list_text(colour = c("black", "white","white","white",
+                                                   "black","black","black","black",
+                                                   "black","black","black","black",
+                                                   "black","black","black","black",
+                                                   "black","black","black","black"),
+                                        face = c("bold","bold","bold","bold"
+                                        )))
+  ) +
+  ylab("Minutes spent on building toy"
+  ) +
+  xlab("Type of Elf"
+  ) +
+  theme(panel.spacing = unit(0.10, "cm"),
+        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        strip.background = element_blank(),
+        panel.background = element_rect(fill = "white", colour = "black"),
+        strip.text.x = element_text(size = 8),
+        axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+        axis.text.x = element_text(size = 8, color = "black"),
+        axis.text.y = element_text(size = 8, color = "black")
+  ) +
+  ylim(20,80)
+
+ggsave(paste("demo_plots/matrices", 
+             "jinglies",
+             "superior",
+             ".svg",
+             sep = "_"),
+       dpi = 300,
+       width = 2000,
+       height = 1900,
+       units = "px")
+
+
+
+#### Matrix mit overlapping overlaplabel gefüllt angepasst für sparklies faster TRANSPOx1 ####
 
 #transpo
-data_jinglies_betterthan_sparklies$`Sample Size_f` <- factor(data_jinglies_betterthan_sparklies$`Sample Size`, levels=c(74,37,25,11))
+data_sparklies_fasterthan_jinglies$`Sample Size_f` <- factor(data_sparklies_fasterthan_jinglies$`Sample Size`, levels=c(74,37,25,11))
 
 
-ggplot(data_jinglies_betterthan_sparklies %>% 
+ggplot(data_sparklies_fasterthan_jinglies %>% 
          gather(Group, value, Jinglies, Sparklies) %>% 
          mutate(Overlap = as.factor(Overlap),
                 `Group Size` = as.factor(`Sample Size_f`)), 
@@ -417,10 +521,10 @@ ggplot(data_jinglies_betterthan_sparklies %>%
                                                                `25` = "Group size = 25",
                                                                `37` = "Group size = 37",
                                                                `74` = "Group size = 74")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between Jinglies and Sparklies = 69%",
-                                                          `0.8` = "Overlap between Jinglies and Sparklies = 80%",
-                                                          `0.92` = "Overlap between Jinglies and Sparklies = 92%",
-                                                          `0.96` = "Overlap between Jinglies and Sparklies = 96%"))),
+                                  Overlap = as_labeller(c(`0.69` = "Difference between the groups = 31% (69% overlap)",
+                                                          `0.8` = "Difference between the groups = 20% (80% overlap)",
+                                                          `0.92` = "Difference between the groups = 8% (92% overlap)",
+                                                          `0.96` = "Difference between the groups = 4% (96% overlap)"))),
               scales = "free",
               strip = strip_nested(
                 background_x = elem_list_rect(fill = c("#fde725","#35b779","#31688e","#440154",
@@ -493,10 +597,10 @@ ggplot(data_women_tallerthan_men %>%
                                                                `22` = "Group size = 22",
                                                                `40` = "Group size = 40",
                                                                `75` = "Group size = 75")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between Women and Men = 69%",
-                                                          `0.8` = "Overlap between Women and Men = 80%",
-                                                          `0.92` = "Overlap between Women and Men = 92%",
-                                                          `0.96` = "Overlap between Women and Men = 96%"))),
+                                  Overlap = as_labeller(c(`0.69` = "Difference between the groups = 31% (69% overlap)",
+                                                          `0.8` = "Difference between the groups = 20% (80% overlap)",
+                                                          `0.92` = "Difference between the groups = 8% (92% overlap)",
+                                                          `0.96` = "Difference between the groups = 4% (96% overlap)"))),
               scales = "free",
               strip = strip_nested(
                 background_x = elem_list_rect(fill = c("#fde725","#35b779","#31688e","#440154",
@@ -565,10 +669,10 @@ ggplot(data_men_tallertan_women %>%
                                                                `21` = "Group size = 21",
                                                                `38` = "Group size = 38",
                                                                `79` = "Group size = 79")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between Women and Men = 69%",
-                                                          `0.8` = "Overlap between Women and Men = 80%",
-                                                          `0.92` = "Overlap between Women and Men = 92%",
-                                                          `0.96` = "Overlap between Women and Men = 96%"))),
+                                  Overlap = as_labeller(c(`0.69` = "Difference between the groups = 31% (69% overlap)",
+                                                          `0.8` = "Difference between the groups = 20% (80% overlap)",
+                                                          `0.92` = "Difference between the groups = 8% (92% overlap)",
+                                                          `0.96` = "Difference between the groups = 4% (96% overlap)"))),
               scales = "free",
               strip = strip_nested(
                 background_x = elem_list_rect(fill = c("#fde725","#35b779","#31688e","#440154",
@@ -1130,27 +1234,164 @@ ggplot(data_jinglies_betterthan_sparklies %>%
 #}  
 
 
-#### Single graph ####
+#### Single graphs for intro ####
 
-ggplot(data %>% 
-         gather(Group, value, A, B) %>% 
+# create subsets of data for each plot:
+
+jinglies_faster_ol69_ss42 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.69 & 
+                                                              data_jinglies_fasterthan_sparklies$`Sample Size` == 42,]
+sparklies_faster_ol92_ss25 <- data_sparklies_fasterthan_jinglies[data_sparklies_fasterthan_jinglies$Overlap == 0.92 & 
+                                                                   data_sparklies_fasterthan_jinglies$`Sample Size` == 25,]
+jinglies_faster_ol80_ss_79 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.8 & 
+                                                                   data_jinglies_fasterthan_sparklies$`Sample Size` == 79,]
+
+
+
+ggplot(jinglies_faster_ol69_ss42 %>% 
+         gather(Group, value, Jinglies, Sparklies) %>% 
          mutate(Overlap = as.factor(Overlap),
-                `Sample Size` = as.factor(`Sample Size`)), 
-       aes(Group, value)) + 
-  geom_dots(side = "both",
-            colour = "black",
-            shape = 20) +
-  theme(panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+                `Group Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)
+) +
+  geom_quasirandom(
+    colour = "#848484",
+    cex = 1.25,
+    alpha = 2/5
+  ) +
+  stat_summary(
+    fun = mean, geom = "point",
+    shape = 95, size = 15, color = "black"
+  ) +
+  ylab("Minutes spent on building toy"
+  ) +
+  xlab("Type of Elf"
+  ) +
+  labs(
+    title = "Difference between the groups = 31% (69% overlap)",
+    subtitle = "Group size = 42"
+  ) +
+  theme(panel.spacing = unit(0.10, "cm"),
+        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
+        strip.background = element_blank(),
         panel.background = element_rect(fill = "white", colour = "black"),
-        axis.title.y = element_text(size = rel(1.25), angle = 90),
-        axis.title.x = element_text(size = rel(1.25)),
-        axis.text.x = element_text(face="bold", color="black", size=12)
-        ) +
-  ylab("Value") +
-  scale_x_discrete(labels=c("Sparklies", "Jinglies"))
+        strip.text.x = element_text(size = 8),
+        axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+        axis.text.x = element_text(size = 8, color = "black"),
+        axis.text.y = element_text(size = 8, color = "black")
+  ) +
+  ylim(20,80)
+
+ggsave(paste("demo_plots/matrices", 
+             "jinglies_faster_ol69_ss42",
+             ".svg",
+             sep = "_"),
+       dpi = 300,
+       width = 500,
+       height = 450,
+       units = "px")
+
+
+ggplot(sparklies_faster_ol92_ss25 %>% 
+         relocate(Jinglies, .before = Sparklies) %>%
+         gather(Group, value, Jinglies, Sparklies) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Group Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)
+) +
+  geom_quasirandom(
+    colour = "#848484",
+    cex = 1.25,
+    alpha = 2/5
+  ) +
+  stat_summary(
+    fun = mean, geom = "point",
+    shape = 95, size = 15, color = "black"
+  ) +
+  ylab("Minutes spent on building toy"
+  ) +
+  xlab("Type of Elf"
+  ) +
+  labs(
+    title = "Difference between the groups = 8% (92% overlap)",
+    subtitle = "Group size = 25"
+  ) +
+  theme(panel.spacing = unit(0.10, "cm"),
+        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        strip.background = element_blank(),
+        panel.background = element_rect(fill = "white", colour = "black"),
+        strip.text.x = element_text(size = 8),
+        axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+        axis.text.x = element_text(size = 8, color = "black"),
+        axis.text.y = element_text(size = 8, color = "black")
+  ) +
+  ylim(20,80)
+
+ggsave(paste("demo_plots/matrices", 
+             "sparklies_faster_ol92_ss25",
+             ".svg",
+             sep = "_"),
+       dpi = 300,
+       width = 500,
+       height = 450,
+       units = "px")
+
+
+
+ggplot(jinglies_faster_ol80_ss_79 %>% 
+         gather(Group, value, Jinglies, Sparklies) %>% 
+         mutate(Overlap = as.factor(Overlap),
+                `Group Size` = as.factor(`Sample Size`)), 
+       aes(Group, value)
+) +
+  geom_quasirandom(
+    colour = "#848484",
+    cex = 1.25,
+    alpha = 2/5
+  ) +
+  stat_summary(
+    fun = mean, geom = "point",
+    shape = 95, size = 15, color = "black"
+  ) +
+  ylab("Minutes spent on building toy"
+  ) +
+  xlab("Type of Elf"
+  ) +
+  labs(
+    title = "Difference between the groups = 20% (80% overlap)",
+    subtitle = "Group size = 79"
+  ) +
+  theme(panel.spacing = unit(0.10, "cm"),
+        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        strip.background = element_blank(),
+        panel.background = element_rect(fill = "white", colour = "black"),
+        strip.text.x = element_text(size = 8),
+        axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+        axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+        axis.text.x = element_text(size = 8, color = "black"),
+        axis.text.y = element_text(size = 8, color = "black")
+  ) +
+  ylim(20,80)
+
+ggsave(paste("demo_plots/matrices", 
+             "jinglies_faster_ol80_ss_79",
+             ".svg",
+             sep = "_"),
+       dpi = 300,
+       width = 500,
+       height = 450,
+       units = "px")
+
 
 # needs sample size mentioned somewhere, as well as overlap
 # add the squiggly line at the lower end of the y-axis
