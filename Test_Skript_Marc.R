@@ -1255,7 +1255,7 @@ ggplot(jinglies_faster_ol69_ss42 %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 1.25,
+    cex = 4,
     alpha = 2/5
   ) +
   stat_summary(
@@ -1289,7 +1289,7 @@ ggsave(paste("demo_plots/matrices",
              "jinglies_faster_ol69_ss42",
              ".svg",
              sep = "_"),
-       dpi = 300,
+       dpi = 100,
        width = 500,
        height = 450,
        units = "px")
@@ -1304,7 +1304,7 @@ ggplot(sparklies_faster_ol92_ss25 %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 1.25,
+    cex = 4,
     alpha = 2/5
   ) +
   stat_summary(
@@ -1338,7 +1338,7 @@ ggsave(paste("demo_plots/matrices",
              "sparklies_faster_ol92_ss25",
              ".svg",
              sep = "_"),
-       dpi = 300,
+       dpi = 100,
        width = 500,
        height = 450,
        units = "px")
@@ -1353,7 +1353,7 @@ ggplot(jinglies_faster_ol80_ss_79 %>%
 ) +
   geom_quasirandom(
     colour = "#848484",
-    cex = 1.25,
+    cex = 4,
     alpha = 2/5
   ) +
   stat_summary(
@@ -1387,7 +1387,7 @@ ggsave(paste("demo_plots/matrices",
              "jinglies_faster_ol80_ss_79",
              ".svg",
              sep = "_"),
-       dpi = 300,
+       dpi = 100,
        width = 500,
        height = 450,
        units = "px")
