@@ -1280,8 +1280,10 @@ ggplot(jinglies_faster_ol69_ss42 %>%
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
         axis.title.x = element_text(size = 13, color = "black", face = "bold"),
-        axis.text.x = element_text(size = 8, color = "black"),
-        axis.text.y = element_text(size = 8, color = "black")
+        axis.text.x = element_text(size = 13, color = "black"),
+        axis.text.y = element_text(size = 13, color = "black"),
+        plot.subtitle = element_text(size = 13, face = "bold"),
+        plot.title = element_text(size = 13, face = "bold")
   ) +
   ylim(20,80)
 
@@ -1329,8 +1331,10 @@ ggplot(sparklies_faster_ol92_ss25 %>%
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
         axis.title.x = element_text(size = 13, color = "black", face = "bold"),
-        axis.text.x = element_text(size = 8, color = "black"),
-        axis.text.y = element_text(size = 8, color = "black")
+        axis.text.x = element_text(size = 13, color = "black"),
+        axis.text.y = element_text(size = 13, color = "black"),
+        plot.subtitle = element_text(size = 13, face = "bold"),
+        plot.title = element_text(size = 13, face = "bold")
   ) +
   ylim(20,80)
 
@@ -1378,8 +1382,10 @@ ggplot(jinglies_faster_ol80_ss_79 %>%
         strip.text.x = element_text(size = 8),
         axis.title.y = element_text(size = 13, color = "black", face = "bold"),
         axis.title.x = element_text(size = 13, color = "black", face = "bold"),
-        axis.text.x = element_text(size = 8, color = "black"),
-        axis.text.y = element_text(size = 8, color = "black")
+        axis.text.x = element_text(size = 13, color = "black"),
+        axis.text.y = element_text(size = 13, color = "black"),
+        plot.subtitle = element_text(size = 13, face = "bold"),
+        plot.title = element_text(size = 13, face = "bold")
   ) +
   ylim(20,80)
 
