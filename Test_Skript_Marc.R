@@ -1267,8 +1267,8 @@ ggplot(jinglies_faster_ol69_ss42 %>%
   xlab("Type of Elf"
   ) +
   labs(
-    title = "Difference between the groups = 31% (69% overlap)",
-    subtitle = "Group size = 42"
+    title = "Plot 1:",
+    subtitle = "Difference between the groups = 31% (69% overlap)\nGroup size = 42"
   ) +
   theme(panel.spacing = unit(0.10, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
@@ -1318,8 +1318,8 @@ ggplot(sparklies_faster_ol92_ss25 %>%
   xlab("Type of Elf"
   ) +
   labs(
-    title = "Difference between the groups = 8% (92% overlap)",
-    subtitle = "Group size = 25"
+    title = "Plot 2:",
+    subtitle = "Difference between the groups = 8% (92% overlap)\nGroup size = 25"
   ) +
   theme(panel.spacing = unit(0.10, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
@@ -1369,8 +1369,8 @@ ggplot(jinglies_faster_ol80_ss_79 %>%
   xlab("Type of Elf"
   ) +
   labs(
-    title = "Difference between the groups = 20% (80% overlap)",
-    subtitle = "Group size = 79"
+    title = "Plot 3:",
+    subtitle = "Difference between the groups = 20% (80% overlap)\nGroup size = 79"
   ) +
   theme(panel.spacing = unit(0.10, "cm"),
         panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
