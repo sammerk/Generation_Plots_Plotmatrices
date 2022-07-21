@@ -717,522 +717,478 @@ ggsave(paste("demo_plots/matrices",
        height = 1900,
        units = "px")
 
-####DEPRECATED####
+#### Single graphs for single graph study ####
 
-#### first viz try
+dentists_more_ol96_ss85 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.96 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 85,]
+dentists_more_ol96_ss41 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.96 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 41,]
+dentists_more_ol96_ss26 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.96 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 26,]
+dentists_more_ol96_ss15 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.96 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 15,]
+#
+dentists_more_ol92_ss85 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.92 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 85,]
+dentists_more_ol92_ss41 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.92 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 41,]
+dentists_more_ol92_ss26 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.92 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 26,]
+dentists_more_ol92_ss15 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.92 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 15,]
+#
+dentists_more_ol80_ss85 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.8 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 85,]
+dentists_more_ol80_ss41 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.8 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 41,]
+dentists_more_ol80_ss26 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.8 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 26,]
+dentists_more_ol80_ss15 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.8 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 15,]
+#
+dentists_more_ol69_ss85 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.69 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 85,]
+dentists_more_ol69_ss41 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.69 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 41,]
+dentists_more_ol69_ss26 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.69 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 26,]
+dentists_more_ol69_ss15 <- data_dentists_morethan_teachers[data_dentists_morethan_teachers$Overlap == 0.69 & 
+                                                             data_dentists_morethan_teachers$`Sample Size` == 15,]
+##
+teachers_more_ol69_ss10 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.69 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 10,]
+teachers_more_ol69_ss23 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.69 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 23,]
+teachers_more_ol69_ss39 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.69 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 39,]
+teachers_more_ol69_ss81 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.69 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 81,]
+#
+teachers_more_ol80_ss10 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.8 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 10,]
+teachers_more_ol80_ss23 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.8 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 23,]
+teachers_more_ol80_ss39 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.8 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 39,]
+teachers_more_ol80_ss81 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.8 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 81,]
+#
+teachers_more_ol92_ss10 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.92 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 10,]
+teachers_more_ol92_ss23 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.92 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 23,]
+teachers_more_ol92_ss39 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.92 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 39,]
+teachers_more_ol92_ss81 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.92 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 81,]
+#
+teachers_more_ol96_ss10 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.96 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 10,]
+teachers_more_ol96_ss23 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.96 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 23,]
+teachers_more_ol96_ss39 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.96 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 39,]
+teachers_more_ol96_ss81 <- data_teachers_morethan_dentists[data_teachers_morethan_dentists$Overlap == 0.96 & 
+                                                             data_teachers_morethan_dentists$`Sample Size` == 81,]
+###
+men_taller_ol69_ss14 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.69 & 
+                                                   data_men_tallertan_women$`Sample Size` == 14,]
+men_taller_ol69_ss21 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.69 & 
+                                                   data_men_tallertan_women$`Sample Size` == 21,]
+men_taller_ol69_ss38 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.69 & 
+                                                   data_men_tallertan_women$`Sample Size` == 38,]
+men_taller_ol69_ss79 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.69 & 
+                                                   data_men_tallertan_women$`Sample Size` == 79,]
+#
+men_taller_ol80_ss14 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.8 & 
+                                                   data_men_tallertan_women$`Sample Size` == 14,]
+men_taller_ol80_ss21 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.8 & 
+                                                   data_men_tallertan_women$`Sample Size` == 21,]
+men_taller_ol80_ss38 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.8 & 
+                                                   data_men_tallertan_women$`Sample Size` == 38,]
+men_taller_ol80_ss79 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.8 & 
+                                                   data_men_tallertan_women$`Sample Size` == 79,]
+#
+men_taller_ol92_ss14 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.92 & 
+                                                   data_men_tallertan_women$`Sample Size` == 14,]
+men_taller_ol92_ss21 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.92 & 
+                                                   data_men_tallertan_women$`Sample Size` == 21,]
+men_taller_ol92_ss38 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.92 & 
+                                                   data_men_tallertan_women$`Sample Size` == 38,]
+men_taller_ol92_ss79 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.92 & 
+                                                   data_men_tallertan_women$`Sample Size` == 79,]
+#
+men_taller_ol96_ss14 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.96 & 
+                                                  data_men_tallertan_women$`Sample Size` == 14,]
+men_taller_ol96_ss21 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.96 & 
+                                                  data_men_tallertan_women$`Sample Size` == 21,]
+men_taller_ol96_ss38 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.96 & 
+                                                   data_men_tallertan_women$`Sample Size` == 38,]
+men_taller_ol96_ss79 <- data_men_tallertan_women[data_men_tallertan_women$Overlap == 0.96 & 
+                                                   data_men_tallertan_women$`Sample Size` == 79,]
+##
+women_taller_ol96_ss75 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.96 & 
+                                                      data_women_tallerthan_men$`Sample Size` == 75,]
+women_taller_ol96_ss40 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.96 & 
+                                                      data_women_tallerthan_men$`Sample Size` == 40,]
+women_taller_ol96_ss22 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.96 & 
+                                                      data_women_tallerthan_men$`Sample Size` == 22,]
+women_taller_ol96_ss9 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.96 & 
+                                                     data_women_tallerthan_men$`Sample Size` == 9,]
+#
+women_taller_ol92_ss75 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.92 & 
+                                                                                data_women_tallerthan_men$`Sample Size` == 75,]
+women_taller_ol92_ss40 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.92 & 
+                                                                                data_women_tallerthan_men$`Sample Size` == 40,]
+women_taller_ol92_ss22 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.92 & 
+                                                                                data_women_tallerthan_men$`Sample Size` == 22,]
+women_taller_ol92_ss9 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.92 & 
+                                                                               data_women_tallerthan_men$`Sample Size` == 9,]
+#
+women_taller_ol80_ss75 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.8 & 
+                                                                                data_women_tallerthan_men$`Sample Size` == 75,]
+women_taller_ol80_ss40 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.8 & 
+                                                                                data_women_tallerthan_men$`Sample Size` == 40,]
+women_taller_ol80_ss22 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.8 & 
+                                                                                data_women_tallerthan_men$`Sample Size` == 22,]
+women_taller_ol80_ss9 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.8 & 
+                                                                               data_women_tallerthan_men$`Sample Size` == 9,]
+#
+women_taller_ol69_ss75 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.69 & 
+                                                                                data_women_tallerthan_men$`Sample Size` == 75,]
+women_taller_ol69_ss40 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.69 & 
+                                                                                data_women_tallerthan_men$`Sample Size` == 40,]
+women_taller_ol69_ss22 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.69 & 
+                                                                                data_women_tallerthan_men$`Sample Size` == 22,]
+women_taller_ol69_ss9 <- data_women_tallerthan_men[data_women_tallerthan_men$Overlap == 0.69 & 
+                                                                               data_women_tallerthan_men$`Sample Size` == 9,]
+###
+jinglies_superior_ol69_ss12 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.69 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 12,]
+jinglies_superior_ol69_ss24 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.69 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 24,]
+jinglies_superior_ol69_ss42 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.69 & 
+                                                                   data_jinglies_fasterthan_sparklies$`Sample Size` == 42,]
+jinglies_superior_ol69_ss79 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.69 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 79,]
+#
+jinglies_superior_ol80_ss12 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.8 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 12,]
+jinglies_superior_ol80_ss24 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.8 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 24,]
+jinglies_superior_ol80_ss42 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.8 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 42,]
+jinglies_superior_ol80_ss79 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.8 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 79,]
+#
+jinglies_superior_ol92_ss12 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.92 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 12,]
+jinglies_superior_ol92_ss24 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.92 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 24,]
+jinglies_superior_ol92_ss42 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.92 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 42,]
+jinglies_superior_ol92_ss79 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.92 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 79,]
+#
+jinglies_superior_ol96_ss12 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.96 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 12,]
+jinglies_superior_ol96_ss24 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.96 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 24,]
+jinglies_superior_ol96_ss42 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.96 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 42,]
+jinglies_superior_ol96_ss79 <- data_jinglies_fasterthan_sparklies[data_jinglies_fasterthan_sparklies$Overlap == 0.96 & 
+                                                                    data_jinglies_fasterthan_sparklies$`Sample Size` == 79,]
+###
 
-# Visualize the data  
-ggplot(data %>% 
-         gather(Group, value, A, B) %>% 
-         mutate(Overlap = as.factor(Overlap),
-                `Sample Size` = as.factor(`Sample Size`)), 
-       aes(Group, value)) + 
-  geom_dots(side = "both",
-            binwidth = 2.75,
-            colour = "black",
-            shape = 20,
-            dotsize = 1.5) + 
-  facet_grid(Overlap ~ `Sample Size`) +
-  theme(panel.spacing = unit(0.35, "cm"),
-        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        strip.background = element_rect(color="black", fill="#5ebc3b", size=1.5, linetype="solid"),
-        panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12, color = "black", face = "bold"),
-        strip.text.y = element_text(size = 12, color = "black", face = "bold", angle = 360),
-        axis.title.y = element_text(size = rel(1.25), angle = 90, vjust = 2),
-        axis.title.x = element_text(size = rel(1.25))
+#big list of all those objects above:
+test_list <- c(
+  dentists_more_ol96_ss85, dentists_more_ol96_ss41, dentists_more_ol96_ss26, dentists_more_ol96_ss15,
+  dentists_more_ol92_ss85, dentists_more_ol92_ss41, dentists_more_ol92_ss26, dentists_more_ol92_ss15,
+  dentists_more_ol80_ss85, dentists_more_ol80_ss41, dentists_more_ol80_ss26, dentists_more_ol80_ss15,
+  dentists_more_ol69_ss85, dentists_more_ol69_ss41, dentists_more_ol69_ss26, dentists_more_ol69_ss15,
+  ##
+  teachers_more_ol69_ss10, teachers_more_ol69_ss23, teachers_more_ol69_ss39, teachers_more_ol69_ss81, 
+  teachers_more_ol80_ss10, teachers_more_ol80_ss23, teachers_more_ol80_ss39, teachers_more_ol80_ss81, 
+  teachers_more_ol92_ss10, teachers_more_ol92_ss23, teachers_more_ol92_ss39, teachers_more_ol92_ss81, 
+  teachers_more_ol96_ss10, teachers_more_ol96_ss23, teachers_more_ol96_ss39, teachers_more_ol96_ss81, 
+  ###
+  men_taller_ol69_ss14, men_taller_ol69_ss21, men_taller_ol69_ss38, men_taller_ol69_ss79, 
+  men_taller_ol80_ss14, men_taller_ol80_ss21, men_taller_ol80_ss38, men_taller_ol80_ss79, 
+  men_taller_ol92_ss14, men_taller_ol92_ss21, men_taller_ol92_ss38, men_taller_ol92_ss79,
+  men_taller_ol96_ss14, men_taller_ol96_ss21, men_taller_ol96_ss38, men_taller_ol96_ss79,
+  ##
+  women_taller_ol96_ss75, women_taller_ol96_ss40, women_taller_ol96_ss22, women_taller_ol96_ss9, 
+  women_taller_ol92_ss75, women_taller_ol92_ss40, women_taller_ol92_ss22, women_taller_ol92_ss9,
+  women_taller_ol80_ss75, women_taller_ol80_ss40, women_taller_ol80_ss22, women_taller_ol80_ss9,
+  women_taller_ol69_ss75, women_taller_ol69_ss40, women_taller_ol69_ss22, women_taller_ol69_ss9,
+  ###
+  jinglies_superior_ol69_ss12, jinglies_superior_ol69_ss24, jinglies_superior_ol69_ss42, jinglies_superior_ol69_ss79,
+  jinglies_superior_ol80_ss12, jinglies_superior_ol80_ss24, jinglies_superior_ol80_ss42, jinglies_superior_ol80_ss79,
+  jinglies_superior_ol92_ss12, jinglies_superior_ol92_ss24, jinglies_superior_ol92_ss42, jinglies_superior_ol92_ss79,
+  jinglies_superior_ol96_ss12, jinglies_superior_ol96_ss24, jinglies_superior_ol96_ss42, jinglies_superior_ol96_ss79
+  ###
+  
+)
+
+
+#big function:
+epic_function <- function(subset) {
+  
+subset_title_string <- deparse(substitute(subset))
+  
+  #if subset starts with  x, then make xlab and ylab this
+  if (startsWith(subset_title_string, "jinglies")) { 
+    x_lab <- "Type of Elf"
+    y_lab <- "Minutes spent on building toy"
+    gather_placeholder1 <- "Jinglies"
+    gather_placeholder2 <- "Sparklies"
+    ylim_par1 <-20
+    ylim_par2 <-80
+  } else if (startsWith(subset_title_string, "women")) {
+    x_lab <- "Gender"
+    y_lab <- "Height in centimeters"
+    gather_placeholder1 <- "Women"
+    gather_placeholder2 <- "Men"
+    ylim_par1 <-130
+    ylim_par2 <-200
+  } else if  (startsWith(subset_title_string, "men")) {
+    x_lab <- "Gender"
+    y_lab <- "Height in centimeters"
+    gather_placeholder1 <- "Women"
+    gather_placeholder2 <- "Men"
+    ylim_par1 <-130
+    ylim_par2 <-200
+  } else if (startsWith(subset_title_string, "dentists")) {
+    x_lab <- "Profession"
+    y_lab <- "Monthly salary in EUR"
+    gather_placeholder1 <- "Dentists"
+    gather_placeholder2 <- "Primary_Teachers"
+    ylim_par1 <-2000
+    ylim_par2 <-6000
+  } else if (startsWith(subset_title_string, "teachers")) {
+    x_lab <- "Profession"
+    y_lab <- "Monthly salary in EUR"
+    gather_placeholder1 <- "Dentists"
+    gather_placeholder2 <- "Primary_Teachers"
+    ylim_par1 <-2000
+    ylim_par2 <-6000
+  }
+
+#if olXX, then change subtitle accordingly (including difference)
+if (str_detect(subset_title_string, "ol69")) { 
+  overlap_placeholder <- "69"
+  difference_placeholder <- "31"
+} else if (str_detect(subset_title_string, "ol80")) {
+  overlap_placeholder <- "80"
+  difference_placeholder <- "20"
+} else if (str_detect(subset_title_string, "ol92")) {
+  overlap_placeholder <- "92"
+  difference_placeholder <- "8"
+}  else {
+  overlap_placeholder <- "96"
+  difference_placeholder <- "4"
+}
+
+#if ssXX, then change subtitle accordingly
+
+group_size_placeholder <- sub(".*ss", "", subset_title_string)
+
+
+#ggplot
+if (gather_placeholder2 == "Primary_Teachers") {
+  ggplot(subset %>% 
+           gather(Group, value, gather_placeholder1, gather_placeholder2) %>% 
+           mutate(Overlap = as.factor(Overlap),
+                  `Group Size` = as.factor(`Sample Size`)), 
+         aes(Group, value)
   ) +
-  labs(title = "Sample sizes") +
-  ylab("Value")
-
-#### Matrix ohne durchg. Label
-
-#for(j in unique(data$test_divider)){
-
-
-#plot_to_upload <- 
-ggplot(data %>% 
-         gather(Group, value, A, B) %>% 
-         mutate(Overlap = as.factor(Overlap),
-                `Group Size` = as.factor(`Sample Size`)), 
-       aes(Group, value)
-) +
-  geom_quasirandom(
-    colour = "#848484",
-    cex = 2) +
-  stat_summary(
-    fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
+    geom_quasirandom(
+      colour = "#848484",
+      cex = 4,
+      alpha = 2/5
+    ) +
+    stat_summary(
+      fun = mean, geom = "point",
+      shape = 95, size = 15, color = "black"
+    ) +
+    ylab(y_lab
+    ) +
+    xlab(x_lab
+    ) +
+    labs(
+      title = paste("Difference between the groups = ",difference_placeholder,"% (",overlap_placeholder,"% overlap)", sep = ""),
+      subtitle = paste("Group size = ",group_size_placeholder, sep = "")
+    ) +
+    theme(panel.spacing = unit(0.10, "cm"),
+          panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+          panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+          panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
+          strip.background = element_blank(),
+          panel.background = element_rect(fill = "white", colour = "black"),
+          strip.text.x = element_text(size = 8),
+          axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+          axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+          axis.text.x = element_text(size = 13, color = "black"),
+          axis.text.y = element_text(size = 13, color = "black"),
+          plot.subtitle = element_text(size = 13, face = "bold"),
+          plot.title = element_text(size = 13, face = "bold")
+    ) +
+    scale_x_discrete(labels=c("Dentists" = "Dentists", "Primary_Teachers" = "Primary Teachers"
+    )) +
+    ylim(ylim_par1,ylim_par2)
+} else {
+  ggplot(subset %>% 
+           gather(Group, value, gather_placeholder1, gather_placeholder2) %>% 
+           mutate(Overlap = as.factor(Overlap),
+                  `Group Size` = as.factor(`Sample Size`)), 
+         aes(Group, value)
   ) +
-  facet_wrap2(~interaction(`Group Size`, Overlap), #habe ich geändert, damit nur noch nach einer var gewrappt wird -> wird auch nur ein strip-panel erstellt.
-              
-              #wenn man hier die values der interaction-variable so umbenennt, dass alle, die den gleichen
-              #Overlap (alle, die jeweils mit .69, .8, etc. enden) haben, auch den gleichen value haben,
-              #dann sollte strip_nested() unten endlich machen was es soll.
-              # -> den Factor recodieren hat mit recode_factor() funktioniert aber dann bin ich nicht mehr weitergekommen
-              labeller = as_labeller(c(`10.0.69` = "Overlap between groups A and B = 69%",
-                                       `20.0.69` = "Overlap between groups A and B = 69%",
-                                       `40.0.69` = "Overlap between groups A and B = 69%",
-                                       `80.0.69` = "Overlap between groups A and B = 69%",
-                                       `10.0.8` = "Overlap between groups A and B = 80%",
-                                       `20.0.8` = "Overlap between groups A and B = 80%",
-                                       `40.0.8` = "Overlap between groups A and B = 80%",
-                                       `80.0.8` = "Overlap between groups A and B = 80%",
-                                       `10.0.92` = "Overlap between groups A and B = 92%",
-                                       `20.0.92` = "Overlap between groups A and B = 92%",
-                                       `40.0.92` = "Overlap between groups A and B = 92%",
-                                       `80.0.92` = "Overlap between groups A and B = 92%",
-                                       `10.0.96` = "Overlap between groups A and B = 96%",
-                                       `20.0.96` = "Overlap between groups A and B = 96%",
-                                       `40.0.96` = "Overlap between groups A and B = 96%",
-                                       `80.0.96` = "Overlap between groups A and B = 96%")),
-              scales = "free",
-              strip = strip_nested( #basiert auf strip_themed, deswegen geändert
-                #macht nicht, was es soll, weil es glaube ich auf den vars, nach denen faccetiert wird basiert, nicht auf den tatsächlichen labeln in der Grafik
-                #-> vars an overlaplabel anpassen!
-                background_x = elem_list_rect(fill = c("#fbda66","#fbda66","#fbda66","#fbda66",
-                                                       "#ef9c47","#ef9c47","#ef9c47","#ef9c47",
-                                                       "#e55e2c","#e55e2c","#e55e2c","#e55e2c",
-                                                       "#88432c","#88432c","#88432c","#88432c")))
-  ) +
-  ylab("Value"
-  ) +
-  geom_text(y = 12, x = 2,
-            mapping = aes(label = txt),hjust = 0,
-            fontface = "bold", color = "black",
-  ) +
-  theme(panel.spacing = unit(0.35, "cm"),
-        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        strip.background = element_blank(),
-        panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12, color = "black", face = "bold"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_blank()
-  ) +
-  ylim(7,83)
+    geom_quasirandom(
+      colour = "#848484",
+      cex = 4,
+      alpha = 2/5
+    ) +
+    stat_summary(
+      fun = mean, geom = "point",
+      shape = 95, size = 15, color = "black"
+    ) +
+    ylab(y_lab
+    ) +
+    xlab(x_lab
+    ) +
+    labs(
+      title = paste("Difference between the groups = ",difference_placeholder,"% (",overlap_placeholder,"% overlap)", sep = ""),
+      subtitle = paste("Group size = ",group_size_placeholder, sep = "")
+    ) +
+    theme(panel.spacing = unit(0.10, "cm"),
+          panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+          panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
+          panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
+          strip.background = element_blank(),
+          panel.background = element_rect(fill = "white", colour = "black"),
+          strip.text.x = element_text(size = 8),
+          axis.title.y = element_text(size = 13, color = "black", face = "bold"),
+          axis.title.x = element_text(size = 13, color = "black", face = "bold"),
+          axis.text.x = element_text(size = 13, color = "black"),
+          axis.text.y = element_text(size = 13, color = "black"),
+          plot.subtitle = element_text(size = 13, face = "bold"),
+          plot.title = element_text(size = 13, face = "bold")
+    ) +
+    ylim(ylim_par1,ylim_par2)
+}
 
-#plot_to_upload_filename <- paste("demo_plots/matrices", 
-#"testing",
-#"if",
-#"it",
-#"works",
-#paste(as.character(j)),
-#".png",
-#sep = "_")
+ggsave(paste("demo_plots/single_plots", 
+             subset_title_string,
+             ".svg",
+             sep = "_"),
+       dpi = 100,
+       width = 500,
+       height = 450,
+       units = "px")
 
-#ggsave(plot_to_upload_filename, 
-#plot_to_upload, 
-#dpi = 300,
-#width = 40,
-#height = 25,
-#units = "cm")
-#}  
+}
 
-
-#### Matrix ohne durchg. Label angepasst für jinglies sparklies
-
-#for(j in unique(data$test_divider)){
-
-
-#plot_to_upload <- 
-ggplot(data_jinglies_betterthan_sparklies %>% 
-         gather(Group, value, Jinglies, Sparklies) %>% 
-         mutate(Overlap = as.factor(Overlap),
-                `Group Size` = as.factor(`Sample Size`)), 
-       aes(Group, value)
-) +
-  geom_quasirandom(
-    colour = "#848484",
-    cex = 2) +
-  stat_summary(
-    fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
-  ) +
-  facet_wrap2(~interaction(`Group Size`, Overlap), #habe ich geändert, damit nur noch nach einer var gewrappt wird -> wird auch nur ein strip-panel erstellt.
-              
-              #wenn man hier die values der interaction-variable so umbenennt, dass alle, die den gleichen
-              #Overlap (alle, die jeweils mit .69, .8, etc. enden) haben, auch den gleichen value haben,
-              #dann sollte strip_nested() unten endlich machen was es soll.
-              # -> den Factor recodieren hat mit recode_factor() funktioniert aber dann bin ich nicht mehr weitergekommen
-              labeller = as_labeller(c(`10.0.69` = "Overlap between Jinglies and Sparklies = 69%",
-                                       `20.0.69` = "Overlap between Jinglies and Sparklies = 69%",
-                                       `40.0.69` = "Overlap between Jinglies and Sparklies = 69%",
-                                       `80.0.69` = "Overlap between Jinglies and Sparklies = 69%",
-                                       `10.0.8` = "Overlap between Jinglies and Sparklies = 80%",
-                                       `20.0.8` = "Overlap between Jinglies and Sparklies = 80%",
-                                       `40.0.8` = "Overlap between Jinglies and Sparklies = 80%",
-                                       `80.0.8` = "Overlap between Jinglies and Sparklies = 80%",
-                                       `10.0.92` = "Overlap between Jinglies and Sparklies = 92%",
-                                       `20.0.92` = "Overlap between Jinglies and Sparklies = 92%",
-                                       `40.0.92` = "Overlap between Jinglies and Sparklies = 92%",
-                                       `80.0.92` = "Overlap between Jinglies and Sparklies = 92%",
-                                       `10.0.96` = "Overlap between Jinglies and Sparklies = 96%",
-                                       `20.0.96` = "Overlap between Jinglies and Sparklies = 96%",
-                                       `40.0.96` = "Overlap between Jinglies and Sparklies = 96%",
-                                       `80.0.96` = "Overlap between Jinglies and Sparklies = 96%")),
-              scales = "free",
-              strip = strip_nested( #basiert auf strip_themed, deswegen geändert
-                #macht nicht, was es soll, weil es glaube ich auf den vars, nach denen faccetiert wird basiert, nicht auf den tatsächlichen labeln in der Grafik
-                #-> vars an overlaplabel anpassen!
-                background_x = elem_list_rect(fill = c("#fbda66","#fbda66","#fbda66","#fbda66",
-                                                       "#ef9c47","#ef9c47","#ef9c47","#ef9c47",
-                                                       "#e55e2c","#e55e2c","#e55e2c","#e55e2c",
-                                                       "#88432c","#88432c","#88432c","#88432c")))
-  ) +
-  ylab("Minutes spent on building toy"
-  ) +
-  xlab("Type of Elf"
-  ) +
-  geom_text(y = 12, x = 2,
-            mapping = aes(label = txt),hjust = 0,
-            fontface = "bold", color = "black",
-  ) +
-  theme(panel.spacing = unit(0.35, "cm"),
-        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        strip.background = element_blank(),
-        panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12, color = "black", face = "bold"),
-        axis.title.y = element_text(size = 17, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 17, color = "black", face = "bold")
-  ) +
-  ylim(7,83)
-
-#plot_to_upload_filename <- paste("demo_plots/matrices", 
-#"testing",
-#"if",
-#"it",
-#"works",
-#paste(as.character(j)),
-#".png",
-#sep = "_")
-
-#ggsave(plot_to_upload_filename, 
-#plot_to_upload, 
-#dpi = 300,
-#width = 40,
-#height = 25,
-#units = "cm")
-#}  
-
-
-#### Matrix mit overlapping overlaplabel LEER
-
-#for(j in unique(data$test_divider)){
-
-
-#plot_to_upload <- 
-ggplot(data %>% 
-         gather(Group, value, A, B) %>% 
-         mutate(Overlap = as.factor(Overlap),
-                `Group Size` = as.factor(`Sample Size`)), 
-       aes(Group, value)
-) +
-  geom_quasirandom(
-    colour = "#848484",
-    cex = 2) +
-  stat_summary(
-    fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
-  ) +
-  facet_wrap2(vars(Overlap ,`Group Size`),
-              labeller = labeller(`Group Size` = as_labeller(c(`10` = "",
-                                                               `20` = "",
-                                                               `40` = "",
-                                                               `80` = "")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between groups A and B = 69%",
-                                                          `0.8` = "Overlap between groups A and B = 80%",
-                                                          `0.92` = "Overlap between groups A and B = 92%",
-                                                          `0.96` = "Overlap between groups A and B = 96%"))),
-              
-              #strip_nested kann nur funktionieren, wenn es zwei levels an strip gibt,
-              #aber man kann den unteren strip nicht separat vom oberen entfernen (soweit ich weiß), deswegen zwei Versionen als "Ersatz":
-              #1. Unterer Strip hat die Informationen aus dem geom_text.
-              #2. Unterer Strip ist leer.
-              
-              #habe ich geändert, damit nur noch nach einer var gewrappt wird -> wird auch nur ein strip-panel erstellt.
-              
-              #wenn man hier die values der interaction-variable so umbenennt, dass alle, die den gleichen
-              #Overlap (alle, die jeweils mit .69, .8, etc. enden) haben, auch den gleichen value haben,
-              #dann sollte strip_nested() unten endlich machen was es soll.
-              # -> den Factor recodieren hat mit recode_factor() funktioniert aber dann bin ich nicht mehr weitergekommen
-              # labeller = as_labeller(c(`10.0.69` = "Overlap between groups A and B = 69%",
-              #                          `20.0.69` = "Overlap between groups A and B = 69%",
-              #                          `40.0.69` = "Overlap between groups A and B = 69%",
-              #                          `80.0.69` = "Overlap between groups A and B = 69%",
-              #                          `10.0.8` = "Overlap between groups A and B = 80%",
-              #                          `20.0.8` = "Overlap between groups A and B = 80%",
-              #                          `40.0.8` = "Overlap between groups A and B = 80%",
-              #                          `80.0.8` = "Overlap between groups A and B = 80%",
-              #                          `10.0.92` = "Overlap between groups A and B = 92%",
-              #                          `20.0.92` = "Overlap between groups A and B = 92%",
-              #                          `40.0.92` = "Overlap between groups A and B = 92%",
-              #                          `80.0.92` = "Overlap between groups A and B = 92%",
-              #                          `10.0.96` = "Overlap between groups A and B = 96%",
-              #                          `20.0.96` = "Overlap between groups A and B = 96%",
-              #                          `40.0.96` = "Overlap between groups A and B = 96%",
-              #                          `80.0.96` = "Overlap between groups A and B = 96%")),
-              scales = "free",
-              strip = strip_nested( #basiert auf strip_themed, deswegen geändert
-                #macht nicht, was es soll, weil es glaube ich auf den vars, nach denen faccetiert wird basiert, nicht auf den tatsächlichen labeln in der Grafik
-                #-> vars an overlaplabel anpassen!
-                background_x = elem_list_rect(fill = c("#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c")))
-  ) +
-  ylab("Value"
-  ) +
-  geom_text(y = 12, x = 2,
-            mapping = aes(label = txt),hjust = 0,
-            fontface = "bold", color = "black",
-  ) +
-  theme(panel.spacing = unit(0.35, "cm"),
-        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        strip.background = element_blank(),
-        panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12, color = "black", face = "bold"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_blank()
-  ) +
-  ylim(7,83)
-
-#plot_to_upload_filename <- paste("demo_plots/matrices", 
-#"testing",
-#"if",
-#"it",
-#"works",
-#paste(as.character(j)),
-#".png",
-#sep = "_")
-
-#ggsave(plot_to_upload_filename, 
-#plot_to_upload, 
-#dpi = 300,
-#width = 40,
-#height = 25,
-#units = "cm")
-#}  
-
-#### Matrix mit overlapping overlaplabel LEER angepasst für height
-
-#for(j in unique(data$test_divider)){
-
-
-#plot_to_upload <- 
-ggplot(data_women_tallerthan_men %>% 
-         gather(Group, value, Women, Men) %>% 
-         mutate(Overlap = as.factor(Overlap),
-                `Group Size` = as.factor(`Sample Size`)), 
-       aes(Group, value)
-) +
-  geom_quasirandom(
-    colour = "#848484",
-    cex = 2) +
-  stat_summary(
-    fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
-  ) +
-  facet_wrap2(vars(Overlap ,`Group Size`),
-              labeller = labeller(`Group Size` = as_labeller(c(`10` = "",
-                                                               `20` = "",
-                                                               `40` = "",
-                                                               `80` = "")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between Women and Men = 69%",
-                                                          `0.8` = "Overlap between Women and Men = 80%",
-                                                          `0.92` = "Overlap between Women and Men = 92%",
-                                                          `0.96` = "Overlap between Women and Men = 96%"))),
-              
-              #strip_nested kann nur funktionieren, wenn es zwei levels an strip gibt,
-              #aber man kann den unteren strip nicht separat vom oberen entfernen (soweit ich weiß), deswegen zwei Versionen als "Ersatz":
-              #1. Unterer Strip hat die Informationen aus dem geom_text.
-              #2. Unterer Strip ist leer.
-              
-              #habe ich geändert, damit nur noch nach einer var gewrappt wird -> wird auch nur ein strip-panel erstellt.
-              
-              #wenn man hier die values der interaction-variable so umbenennt, dass alle, die den gleichen
-              #Overlap (alle, die jeweils mit .69, .8, etc. enden) haben, auch den gleichen value haben,
-              #dann sollte strip_nested() unten endlich machen was es soll.
-              # -> den Factor recodieren hat mit recode_factor() funktioniert aber dann bin ich nicht mehr weitergekommen
-              # labeller = as_labeller(c(`10.0.69` = "Overlap between groups A and B = 69%",
-              #                          `20.0.69` = "Overlap between groups A and B = 69%",
-              #                          `40.0.69` = "Overlap between groups A and B = 69%",
-              #                          `80.0.69` = "Overlap between groups A and B = 69%",
-              #                          `10.0.8` = "Overlap between groups A and B = 80%",
-              #                          `20.0.8` = "Overlap between groups A and B = 80%",
-              #                          `40.0.8` = "Overlap between groups A and B = 80%",
-              #                          `80.0.8` = "Overlap between groups A and B = 80%",
-              #                          `10.0.92` = "Overlap between groups A and B = 92%",
-              #                          `20.0.92` = "Overlap between groups A and B = 92%",
-              #                          `40.0.92` = "Overlap between groups A and B = 92%",
-              #                          `80.0.92` = "Overlap between groups A and B = 92%",
-              #                          `10.0.96` = "Overlap between groups A and B = 96%",
-              #                          `20.0.96` = "Overlap between groups A and B = 96%",
-              #                          `40.0.96` = "Overlap between groups A and B = 96%",
-              #                          `80.0.96` = "Overlap between groups A and B = 96%")),
-              scales = "free",
-              strip = strip_nested( #basiert auf strip_themed, deswegen geändert
-                #macht nicht, was es soll, weil es glaube ich auf den vars, nach denen faccetiert wird basiert, nicht auf den tatsächlichen labeln in der Grafik
-                #-> vars an overlaplabel anpassen!
-                background_x = elem_list_rect(fill = c("#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c")))
-  ) +
-  ylab("Height in centimeters"
-  ) +
-  xlab("Gender"
-  ) +
-  geom_text(y = 135, x = 2,
-            mapping = aes(label = txt),hjust = 0,
-            fontface = "bold", color = "black",
-  ) +
-  theme(panel.spacing = unit(0.35, "cm"),
-        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        strip.background = element_blank(),
-        panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12, color = "black", face = "bold"),
-        axis.title.y = element_text(size = 17, color = "black", face = "bold"),
-        axis.title.x = element_text(size = 17, color = "black", face = "bold")
-  ) +
-  ylim(130,200)
-
-#plot_to_upload_filename <- paste("demo_plots/matrices", 
-#"testing",
-#"if",
-#"it",
-#"works",
-#paste(as.character(j)),
-#".png",
-#sep = "_")
-
-#ggsave(plot_to_upload_filename, 
-#plot_to_upload, 
-#dpi = 300,
-#width = 40,
-#height = 25,
-#units = "cm")
-#}  
-
-
-#### Matrix mit overlapping overlaplabel Gefüllt
-
-#for(j in unique(data$test_divider)){
-
-
-#plot_to_upload <- 
-ggplot(data_jinglies_betterthan_sparklies %>% 
-         gather(Group, value, A, B) %>% 
-         mutate(Overlap = as.factor(Overlap),
-                `Group Size` = as.factor(`Sample Size`)), 
-       aes(Group, value)
-) +
-  geom_quasirandom(
-    colour = "#848484",
-    cex = 2) +
-  stat_summary(
-    fun = mean, geom = "point", 
-    shape = 95, size = 10, color = "green"
-  ) +
-  facet_wrap2(vars(Overlap ,`Group Size`),
-              labeller = labeller(`Group Size` = as_labeller(c(`10` = "Group size = 10",
-                                                               `20` = "Group size = 20",
-                                                               `40` = "Group size = 40",
-                                                               `80` = "Group size = 80")),
-                                  Overlap = as_labeller(c(`0.69` = "Overlap between groups A and B = 69%",
-                                                          `0.8` = "Overlap between groups A and B = 80%",
-                                                          `0.92` = "Overlap between groups A and B = 92%",
-                                                          `0.96` = "Overlap between groups A and B = 96%"))),
-              
-              #strip_nested kann nur funktionieren, wenn es zwei levels an strip gibt,
-              #aber man kann den unteren strip nicht separat vom oberen entfernen (soweit ich weiß), deswegen zwei Versionen als "Ersatz":
-              #1. Unterer Strip hat die Informationen aus dem geom_text.
-              #2. Unterer Strip ist leer.
-              
-              #habe ich geändert, damit nur noch nach einer var gewrappt wird -> wird auch nur ein strip-panel erstellt.
-              
-              #wenn man hier die values der interaction-variable so umbenennt, dass alle, die den gleichen
-              #Overlap (alle, die jeweils mit .69, .8, etc. enden) haben, auch den gleichen value haben,
-              #dann sollte strip_nested() unten endlich machen was es soll.
-              # -> den Factor recodieren hat mit recode_factor() funktioniert aber dann bin ich nicht mehr weitergekommen
-              # labeller = as_labeller(c(`10.0.69` = "Overlap between groups A and B = 69%",
-              #                          `20.0.69` = "Overlap between groups A and B = 69%",
-              #                          `40.0.69` = "Overlap between groups A and B = 69%",
-              #                          `80.0.69` = "Overlap between groups A and B = 69%",
-              #                          `10.0.8` = "Overlap between groups A and B = 80%",
-              #                          `20.0.8` = "Overlap between groups A and B = 80%",
-              #                          `40.0.8` = "Overlap between groups A and B = 80%",
-              #                          `80.0.8` = "Overlap between groups A and B = 80%",
-              #                          `10.0.92` = "Overlap between groups A and B = 92%",
-              #                          `20.0.92` = "Overlap between groups A and B = 92%",
-              #                          `40.0.92` = "Overlap between groups A and B = 92%",
-              #                          `80.0.92` = "Overlap between groups A and B = 92%",
-              #                          `10.0.96` = "Overlap between groups A and B = 96%",
-              #                          `20.0.96` = "Overlap between groups A and B = 96%",
-              #                          `40.0.96` = "Overlap between groups A and B = 96%",
-              #                          `80.0.96` = "Overlap between groups A and B = 96%")),
-              scales = "free",
-              strip = strip_nested( #basiert auf strip_themed, deswegen geändert
-                #macht nicht, was es soll, weil es glaube ich auf den vars, nach denen faccetiert wird basiert, nicht auf den tatsächlichen labeln in der Grafik
-                #-> vars an overlaplabel anpassen!
-                background_x = elem_list_rect(fill = c("#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c",
-                                                       "#fbda66","#ef9c47","#e55e2c","#88432c")))
-  ) +
-  ylab("Value"
-  ) +
-  # geom_text(y = 12, x = 2,
-  #           mapping = aes(label = txt),hjust = 0,
-  #           fontface = "bold", color = "black",
-  # ) +
-  theme(panel.spacing = unit(0.35, "cm"),
-        panel.grid.major.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.minor.y = element_line(size = 0.5, linetype = 'solid', colour = "grey"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        strip.background = element_blank(),
-        panel.background = element_rect(fill = "white", colour = "black"),
-        strip.text.x = element_text(size = 12, color = "black", face = "bold"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_blank()
-  ) +
-  ylim(7,83)
-
-#plot_to_upload_filename <- paste("demo_plots/matrices", 
-#"testing",
-#"if",
-#"it",
-#"works",
-#paste(as.character(j)),
-#".png",
-#sep = "_")
-
-#ggsave(plot_to_upload_filename, 
-#plot_to_upload, 
-#dpi = 300,
-#width = 40,
-#height = 25,
-#units = "cm")
-#}  
-
+epic_function(dentists_more_ol96_ss85)
+epic_function(dentists_more_ol96_ss41)
+epic_function(dentists_more_ol96_ss26)
+epic_function(dentists_more_ol96_ss15)
+#
+epic_function(dentists_more_ol92_ss85)
+epic_function(dentists_more_ol92_ss41)
+epic_function(dentists_more_ol92_ss26)
+epic_function(dentists_more_ol92_ss15)
+#
+epic_function(dentists_more_ol80_ss85)
+epic_function(dentists_more_ol80_ss41)
+epic_function(dentists_more_ol80_ss26)
+epic_function(dentists_more_ol80_ss15)
+#
+epic_function(dentists_more_ol69_ss85)
+epic_function(dentists_more_ol69_ss41)
+epic_function(dentists_more_ol69_ss26)
+epic_function(dentists_more_ol69_ss15)
+##
+epic_function(teachers_more_ol69_ss10)
+epic_function(teachers_more_ol69_ss23)
+epic_function(teachers_more_ol69_ss39)
+epic_function(teachers_more_ol69_ss81)
+#
+epic_function(teachers_more_ol80_ss10)
+epic_function(teachers_more_ol80_ss23)
+epic_function(teachers_more_ol80_ss39)
+epic_function(teachers_more_ol80_ss81)
+#
+epic_function(teachers_more_ol92_ss10)
+epic_function(teachers_more_ol92_ss23)
+epic_function(teachers_more_ol92_ss39)
+epic_function(teachers_more_ol92_ss81)
+#
+epic_function(teachers_more_ol96_ss10)
+epic_function(teachers_more_ol96_ss23)
+epic_function(teachers_more_ol96_ss39)
+epic_function(teachers_more_ol96_ss81)
+###
+epic_function(men_taller_ol69_ss14)
+epic_function(men_taller_ol69_ss21)
+epic_function(men_taller_ol69_ss38)
+epic_function(men_taller_ol69_ss79)
+#
+epic_function(men_taller_ol80_ss14)
+epic_function(men_taller_ol80_ss21)
+epic_function(men_taller_ol80_ss38)
+epic_function(men_taller_ol80_ss79)
+#
+epic_function(men_taller_ol92_ss14)
+epic_function(men_taller_ol92_ss21)
+epic_function(men_taller_ol92_ss38)
+epic_function(men_taller_ol92_ss79)
+#
+epic_function(men_taller_ol96_ss14)
+epic_function(men_taller_ol96_ss21)
+epic_function(men_taller_ol96_ss38)
+epic_function(men_taller_ol96_ss79)
+##
+epic_function(women_taller_ol96_ss75)
+epic_function(women_taller_ol96_ss40)
+epic_function(women_taller_ol96_ss22)
+epic_function(women_taller_ol96_ss9)
+#
+epic_function(women_taller_ol92_ss75)
+epic_function(women_taller_ol92_ss40)
+epic_function(women_taller_ol92_ss22)
+epic_function(women_taller_ol92_ss9)
+#
+epic_function(women_taller_ol80_ss75)
+epic_function(women_taller_ol80_ss40)
+epic_function(women_taller_ol80_ss22)
+epic_function(women_taller_ol80_ss9)
+#
+epic_function(women_taller_ol69_ss75)
+epic_function(women_taller_ol69_ss40)
+epic_function(women_taller_ol69_ss22)
+epic_function(women_taller_ol69_ss9)
+###
+epic_function(jinglies_superior_ol69_ss12)
+epic_function(jinglies_superior_ol69_ss24)
+epic_function(jinglies_superior_ol69_ss42)
+epic_function(jinglies_superior_ol69_ss79)
+#
+epic_function(jinglies_superior_ol80_ss12)
+epic_function(jinglies_superior_ol80_ss24)
+epic_function(jinglies_superior_ol80_ss42)
+epic_function(jinglies_superior_ol80_ss79)
+#
+epic_function(jinglies_superior_ol92_ss12)
+epic_function(jinglies_superior_ol92_ss24)
+epic_function(jinglies_superior_ol92_ss42)
+epic_function(jinglies_superior_ol92_ss79)
+#
+epic_function(jinglies_superior_ol96_ss12)
+epic_function(jinglies_superior_ol96_ss24)
+epic_function(jinglies_superior_ol96_ss42)
+epic_function(jinglies_superior_ol96_ss79)
 
 #### Single graphs for intro ####
 
