@@ -1027,12 +1027,12 @@ if (gather_placeholder2 == "Primary_Teachers") {
           strip.background = element_blank(),
           panel.background = element_rect(fill = "white", colour = "black"),
           strip.text.x = element_text(size = 8),
-          axis.title.y = element_text(size = 13, color = "black", face = "bold"),
-          axis.title.x = element_text(size = 13, color = "black", face = "bold"),
-          axis.text.x = element_text(size = 13, color = "black"),
-          axis.text.y = element_text(size = 13, color = "black"),
-          plot.subtitle = element_text(size = 13, face = "bold"),
-          plot.title = element_text(size = 13, face = "bold")
+          axis.title.y = element_text(size = 12, color = "black", face = "bold"),
+          axis.title.x = element_text(size = 12, color = "black", face = "bold"),
+          axis.text.x = element_text(size = 12, color = "black"),
+          axis.text.y = element_text(size = 12, color = "black"),
+          plot.subtitle = element_text(size = 12, face = "bold"),
+          plot.title = element_text(size = 12, face = "bold")
     ) +
     scale_x_discrete(labels=c("Dentists" = "Dentists", "Primary_Teachers" = "Primary Teachers"
     )) +
