@@ -164,7 +164,8 @@ for(i in sample_sizes_3){
 }
 
 # Inspect the evidence height - women taller 
-data_women_tallerthan_men %>% 
+evidence_women_taller <- 
+  data_women_tallerthan_men %>% 
   pivot_longer(c(Women, Men), names_to = "Group", values_to = "value") %>%
   nest_by(`Sample Size`, cohen_d) %>% 
   mutate(PmP = bain(t_test(value ~ Group, data = data), 
@@ -173,7 +174,10 @@ data_women_tallerthan_men %>%
                      hypothesis = "groupWomen > groupMen")$fit$BF[1],
          JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
          pval = t.test(value ~ Group, data = data)$p.value,
-         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate) 
+         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
+         matrix = "women_taller") 
+
+write_csv(evidence_women_taller, "evidence_women_taller.csv")
 
 # loop over sample sizes height - men taller
 for(i in sample_sizes_4){
