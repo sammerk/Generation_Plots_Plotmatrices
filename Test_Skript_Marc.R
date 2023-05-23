@@ -109,6 +109,7 @@ data_sparklies_fasterthan_jinglies %>%
   skimr::skim()
 
 # Inspect the evidence jinglies sparklies 
+evidence_sparklies_faster <-
 data_sparklies_fasterthan_jinglies %>% 
   pivot_longer(c(Jinglies, Sparklies), names_to = "Group", values_to = "value") %>%
   nest_by(`Sample Size`, cohen_d) %>% 
@@ -118,7 +119,10 @@ data_sparklies_fasterthan_jinglies %>%
                      hypothesis = "groupJinglies > groupSparklies")$fit$BF[1],
          JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
          pval = t.test(value ~ Group, data = data)$p.value,
-         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate)
+         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
+         matrix = "sparklies_faster")
+
+write_csv(evidence_sparklies_faster, "evidence_sparklies_faster.csv")
 
 #Jinglies faster
 
@@ -199,6 +203,7 @@ for(i in sample_sizes_4){
 }
 
 # Inspect the evidence height - men taller
+evidence_men_taller <-
 data_men_tallertan_women %>% 
   gather(Group, value, Women, Men) %>% 
   nest_by(`Sample Size`, cohen_d) %>% 
@@ -207,7 +212,11 @@ data_men_tallertan_women %>%
          AABF = bain(t_test(value ~ Group, data = data), 
                      hypothesis = "groupMen > groupWomen")$fit$BF[1],
          JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
-         pval = t.test(value ~ Group, data = data)$p.value)
+         pval = t.test(value ~ Group, data = data)$p.value,
+         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
+         matrix = "men_taller") 
+
+write_csv(evidence_men_taller, "evidence_men_taller.csv")
 
 
 
@@ -233,6 +242,7 @@ for(i in sample_sizes_5){
 }
 
 # Inspect the evidence salary - dentists more 
+evidence_dentists_more <-
 data_dentists_morethan_teachers %>% 
   pivot_longer(c(Dentists, Primary_Teachers), names_to = "Group", values_to = "value") %>%
   nest_by(`Sample Size`, cohen_d) %>% 
@@ -242,7 +252,10 @@ data_dentists_morethan_teachers %>%
                      hypothesis = "groupDentists > groupPrimary_Teachers")$fit$BF[1],
          JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
          pval = t.test(value ~ Group, data = data)$p.value,
-         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate) 
+         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
+         matrix = "dentists_more")
+
+write_csv(evidence_dentists_more, "evidence_dentists_more.csv")
 
 # loop over sample sizes salary - teachers more
 for(i in sample_sizes_6){
@@ -264,6 +277,7 @@ for(i in sample_sizes_6){
 }
 
 # Inspect the evidence salary - teachers more 
+evidence_teachers_more <-
 data_teachers_morethan_dentists %>% 
   pivot_longer(c(Dentists, Primary_Teachers), names_to = "Group", values_to = "value") %>%
   nest_by(`Sample Size`, cohen_d) %>% 
@@ -273,7 +287,10 @@ data_teachers_morethan_dentists %>%
                      hypothesis = "groupPrimary_Teachers > groupDentists")$fit$BF[1],
          JZSBF = extractBF(ttestBF(formula = value ~ Group, data = data))$bf,
          pval = t.test(value ~ Group, data = data)$p.value,
-         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate) 
+         cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
+         matrix = "teachers_more")
+
+write_csv(evidence_teachers_more, "evidence_teachers_more.csv")
 
 
 #### Matrix mit overlapping overlaplabel gefüllt angepasst für salary dentists more TRANSPOx2 ####
