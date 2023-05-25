@@ -122,6 +122,8 @@ data_sparklies_fasterthan_jinglies %>%
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
          matrix = "sparklies_faster")
 
+save(evidence_sparklies_faster,file="evidence_sparklies_faster.Rda")
+
 write_csv(evidence_sparklies_faster, "evidence_sparklies_faster.csv")
 
 #Jinglies faster
@@ -181,6 +183,8 @@ evidence_women_taller <-
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
          matrix = "women_taller") 
 
+save(evidence_women_taller,file="evidence_women_taller.Rda")
+
 write_csv(evidence_women_taller, "evidence_women_taller.csv")
 
 # loop over sample sizes height - men taller
@@ -215,6 +219,8 @@ data_men_tallertan_women %>%
          pval = t.test(value ~ Group, data = data)$p.value,
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
          matrix = "men_taller") 
+
+save(evidence_men_taller,file="evidence_men_taller.Rda")
 
 write_csv(evidence_men_taller, "evidence_men_taller.csv")
 
@@ -255,6 +261,8 @@ data_dentists_morethan_teachers %>%
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
          matrix = "dentists_more")
 
+save(evidence_dentists_more,file="evidence_dentists_more.Rda")
+
 write_csv(evidence_dentists_more, "evidence_dentists_more.csv")
 
 # loop over sample sizes salary - teachers more
@@ -289,6 +297,8 @@ data_teachers_morethan_dentists %>%
          pval = t.test(value ~ Group, data = data)$p.value,
          cohenD = effsize::cohen.d(value ~ Group, data = data)$estimate,
          matrix = "teachers_more")
+
+save(evidence_teachers_more,file="evidence_teachers_more.Rda")
 
 write_csv(evidence_teachers_more, "evidence_teachers_more.csv")
 
